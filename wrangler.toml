@@ -1,0 +1,8 @@
+name = "mentor-match-academy"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Production secrets (SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY, etc.) are set
+# via `wrangler secret put <NAME>` or the Cloudflare dashboard — never here.
+# Non-secret vars can go under [vars] once there are any; VITE_-prefixed
+# client vars are baked in at build time by Vite and don't belong here.
