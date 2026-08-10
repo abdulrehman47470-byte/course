@@ -17,6 +17,8 @@ export function PageHeader({
         src={image}
         alt=""
         aria-hidden="true"
+        fetchPriority="high"
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="absolute inset-0 bg-forest-deep/80" />

@@ -42,6 +42,8 @@ export function Hero() {
               alt="Learner studying online with a laptop"
               width={1024}
               height={1024}
+              fetchPriority="high"
+              decoding="async"
               className="ml-auto h-[320px] w-full max-w-[440px] rounded-xl object-cover object-top lg:h-[380px]"
             />
           </div>

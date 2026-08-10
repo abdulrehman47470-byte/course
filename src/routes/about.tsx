@@ -92,6 +92,8 @@ function AboutPage() {
               alt="Learner studying online with a laptop"
               width={1024}
               height={1024}
+              loading="lazy"
+              decoding="async"
               className="h-[340px] w-full rounded-xl object-cover object-top lg:h-[400px]"
             />
           </div>
