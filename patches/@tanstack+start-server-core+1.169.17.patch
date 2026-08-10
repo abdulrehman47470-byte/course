@@ -1,0 +1,26 @@
+diff --git a/node_modules/@tanstack/start-server-core/dist/esm/createStartHandler.js b/node_modules/@tanstack/start-server-core/dist/esm/createStartHandler.js
+index 34a1602..e258236 100644
+--- a/node_modules/@tanstack/start-server-core/dist/esm/createStartHandler.js
++++ b/node_modules/@tanstack/start-server-core/dist/esm/createStartHandler.js
+@@ -18,7 +18,11 @@ function getStartResponseHeaders(opts) {
+ }
+ var entriesPromise;
+ var hasWarnedMissingCsrfMiddleware = false;
+-var defaultCsrfMiddleware = createCsrfMiddleware({ filter: (ctx) => ctx.handlerType === "serverFn" });
++var _defaultCsrfMiddleware;
++function getDefaultCsrfMiddleware() {
++	if (_defaultCsrfMiddleware === undefined) _defaultCsrfMiddleware = typeof createCsrfMiddleware === "function" ? createCsrfMiddleware({ filter: (ctx) => ctx.handlerType === "serverFn" }) : null;
++	return _defaultCsrfMiddleware;
++}
+ var getCachedBaseManifest = createCachedBaseManifestLoader(() => getStartManifest());
+ var getProdBaseManifest = () => getCachedBaseManifest();
+ var getBaseManifest = process.env.TSS_DEV_SERVER === "true" ? getStartManifest : getProdBaseManifest;
+@@ -235,7 +239,7 @@ function createStartHandler(cbOrOptions) {
+ 			];
+ 			const requestStartOptions = {
+ 				...startOptions,
+-				requestMiddleware: hasStartInstance ? startOptions.requestMiddleware : [defaultCsrfMiddleware],
++				requestMiddleware: hasStartInstance ? startOptions.requestMiddleware : [getDefaultCsrfMiddleware()].filter(Boolean),
+ 				serializationAdapters
+ 			};
+ 			const flattenedRequestMiddlewares = requestStartOptions.requestMiddleware ? flattenMiddlewares(requestStartOptions.requestMiddleware) : [];
