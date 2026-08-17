@@ -1,21 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BookOpen, Percent, Users } from "lucide-react";
 import { AdminShell } from "@/components/admin/AdminShell";
-import { listAllCourses, listEnrollmentsAdmin, listUsers } from "@/lib/admin/server-fns";
+import { getAdminCounts } from "@/lib/admin/server-fns";
 
 export const Route = createFileRoute("/_authed-admin/admin/")({
-  loader: async () => {
-    const [users, courses, enrollments] = await Promise.all([
-      listUsers(),
-      listAllCourses(),
-      listEnrollmentsAdmin(),
-    ]);
-    return {
-      userCount: users.length,
-      courseCount: courses.length,
-      enrollmentCount: enrollments.length,
-    };
-  },
+  loader: () => getAdminCounts(),
   component: AdminOverviewPage,
 });
 

@@ -19,6 +19,27 @@ import {
 // Postgres, which is the correct defense-in-depth behavior even though the
 // _authed-admin layout route already blocks non-admins from reaching here.
 
+export type AdminCounts = { userCount: number; courseCount: number; enrollmentCount: number };
+
+// Row counts only — uses head:true so Postgres returns just the count,
+// not the underlying rows. Avoids pulling every profiles/courses/enrollments
+// row over the wire just to display three numbers on the overview page.
+export const getAdminCounts = createServerFn({ method: "GET" }).handler(
+  async (): Promise<AdminCounts> => {
+    const supabase = getSupabaseServerClient();
+    const [users, courses, enrollments] = await Promise.all([
+      supabase.from("profiles").select("*", { count: "exact", head: true }),
+      supabase.from("courses").select("*", { count: "exact", head: true }),
+      supabase.from("enrollments").select("*", { count: "exact", head: true }),
+    ]);
+    return {
+      userCount: users.count ?? 0,
+      courseCount: courses.count ?? 0,
+      enrollmentCount: enrollments.count ?? 0,
+    };
+  },
+);
+
 export const listUsers = createServerFn({ method: "GET" }).handler(async (): Promise<Profile[]> => {
   const supabase = getSupabaseServerClient();
   const { data } = await supabase

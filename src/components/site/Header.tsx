@@ -2,7 +2,6 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, LayoutDashboard, LogOut, Menu, Search, User, X } from "lucide-react";
 import { useSession } from "@/lib/auth/session";
-import { getSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 export function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
   return (
@@ -46,6 +45,7 @@ function UserMenu() {
   if (!session) return null;
 
   async function signOut() {
+    const { getSupabaseBrowserClient } = await import("@/lib/supabase/browser");
     const supabase = getSupabaseBrowserClient();
     await supabase.auth.signOut();
     setOpen(false);
@@ -116,6 +116,7 @@ export function Header() {
   }
 
   async function mobileSignOut() {
+    const { getSupabaseBrowserClient } = await import("@/lib/supabase/browser");
     const supabase = getSupabaseBrowserClient();
     await supabase.auth.signOut();
     setMobileOpen(false);
