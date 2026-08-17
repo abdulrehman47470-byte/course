@@ -61,7 +61,7 @@ function AboutPage() {
             </>
           }
           subtitle="CareerBooster exists to turn industry knowledge into career outcomes — through mentor-led courses, recognized certification, and direct paths to employment."
-          image="https://images.unsplash.com/photo-1603201667141-5a2d4c673378?w=1600&h=500&fit=crop&auto=format&q=70"
+          image="/images/1603201667141-5a2d4c673378-1600x500.jpg"
         />
 
         <section className="bg-surface py-16">

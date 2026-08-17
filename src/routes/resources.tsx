@@ -37,19 +37,19 @@ const resourceTypes = [
     icon: FileText,
     title: "Blog",
     text: "Career guides, industry breakdowns, and tips from mentors on breaking into competitive fields.",
-    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1501504905252-473c47e087f8-480x280.jpg",
   },
   {
     icon: BookOpen,
     title: "Guides & Playbooks",
     text: "Field-by-field roadmaps, project ideas, and worksheets to help you plan your next skill investment.",
-    img: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1488190211105-8b0e65b80b4e-480x280.jpg",
   },
   {
     icon: PlayCircle,
     title: "Webinars",
     text: "Live and recorded sessions with mentors covering AI, data, certification, and career strategy.",
-    img: "https://images.unsplash.com/photo-1616531770192-6eaea74c2456?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1616531770192-6eaea74c2456-480x280.jpg",
   },
 ];
 
@@ -136,7 +136,7 @@ function ResourcesPage() {
             </>
           }
           subtitle="Everything you need to plan your next move — from research and publishing guidance to career playbooks and answers on how the platform works."
-          image="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1600&h=500&fit=crop&auto=format&q=70"
+          image="/images/1521587760476-6c12a4b040da-1600x500.jpg"
         />
 
         <section className="bg-surface py-16">

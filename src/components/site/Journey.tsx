@@ -67,37 +67,37 @@ const platform = [
     icon: PlayCircle,
     title: "Interactive Learning",
     text: "Engaging video lectures with real-world examples.",
-    img: "https://images.unsplash.com/photo-1758685848208-e108b6af94cc?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1758685848208-e108b6af94cc-480x280.jpg",
   },
   {
     icon: TrendingUp,
     title: "Track Your Progress",
     text: "Track your progress and achievements in real time.",
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1551288049-bebda4e38f71-480x280.jpg",
   },
   {
     icon: Award,
     title: "Earn Certificates",
     text: "Get CPD & IBEI recognized certificates globally.",
-    img: "https://images.unsplash.com/photo-1638636241638-aef5120c5153?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1638636241638-aef5120c5153-480x280.jpg",
   },
   {
     icon: FileText,
     title: "AI CV Builder",
     text: "Create ATS-friendly CVs that get you interviews.",
-    img: "https://images.unsplash.com/photo-1698047681432-006d2449c631?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1698047681432-006d2449c631-480x280.jpg",
   },
   {
     icon: Briefcase,
     title: "Job Portal",
     text: "Access verified job opportunities.",
-    img: "https://images.unsplash.com/photo-1713947503588-8ff8196dc4a3?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1713947503588-8ff8196dc4a3-480x280.jpg",
   },
   {
     icon: Linkedin,
     title: "LinkedIn Integration",
     text: "Connect, build your network and get hired faster.",
-    img: "https://images.unsplash.com/photo-1704382002666-5dc4fbb522c0?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1704382002666-5dc4fbb522c0-480x280.jpg",
   },
 ];
 

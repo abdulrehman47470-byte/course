@@ -97,7 +97,7 @@ function CertificationsPage() {
             </>
           }
           subtitle="Every learning path ends in a CPD & IBEI recognized certificate — verifiable, lifetime-valid, and built to be trusted by employers worldwide."
-          image="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&h=500&fit=crop&auto=format&q=70"
+          image="/images/1523240795612-9a054b0db644-1600x500.jpg"
         />
 
         <section className="bg-surface py-16">

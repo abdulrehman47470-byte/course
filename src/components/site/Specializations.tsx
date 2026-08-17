@@ -16,37 +16,37 @@ const aiModules = [
     icon: Brain,
     title: "Applied AI & Machine Learning",
     text: "Move from theory to practice with supervised and unsupervised models, automated pipelines, and real deployment workflows.",
-    img: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1485827404703-89b55fcc595e-480x280.jpg",
   },
   {
     icon: BarChart3,
     title: "Data Analytics & Visualization",
     text: "Master data cleaning and storytelling with Tableau, Power BI, and Looker Studio to turn raw data into decision-ready insights.",
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1551288049-bebda4e38f71-480x280.jpg",
   },
   {
     icon: Code2,
     title: "Python & R Foundations",
     text: "Build a strong coding foundation for automation and analysis — no prior programming background required.",
-    img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1515879218367-8466d910aaa4-480x280.jpg",
   },
   {
     icon: Workflow,
     title: "Agentic Workflow Automation",
     text: "Design autonomous agents with tools like n8n to handle repetitive data tasks and free up time for high-value work.",
-    img: "https://images.unsplash.com/photo-1716191299980-a6e8827ba10b?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1716191299980-a6e8827ba10b-480x280.jpg",
   },
   {
     icon: Layers,
     title: "Industry-Specific Specializations",
     text: "Go deeper with track-specific capstones across AI, cybersecurity, marketing analytics, and web engineering.",
-    img: "https://images.unsplash.com/photo-1518152006812-edab29b069ac?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1518152006812-edab29b069ac-480x280.jpg",
   },
   {
     icon: FileSearch,
     title: "Portfolio & Case Study Building",
     text: "Turn every module into a case study you can show employers — real projects, not just certificates.",
-    img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1496181133206-80ce9b88a853-480x280.jpg",
   },
 ];
 

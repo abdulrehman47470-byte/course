@@ -167,7 +167,7 @@ const courses: Course[] = [
   {
     category: "Bioscience & Research",
     icon: Dna,
-    image: "https://images.unsplash.com/photo-1643780668909-580822430155?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1643780668909-580822430155-640x512.jpg",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Bioinformatics",
@@ -185,7 +185,7 @@ const courses: Course[] = [
   {
     category: "Bioscience & Research",
     icon: FlaskConical,
-    image: "https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1614935151651-0bea6508db6b-640x512.jpg",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Drug Design",
@@ -203,7 +203,7 @@ const courses: Course[] = [
   {
     category: "Bioscience & Research",
     icon: Syringe,
-    image: "https://images.unsplash.com/photo-1611694449252-02453c27856a?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1611694449252-02453c27856a-640x512.jpg",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Vaccine Design",
@@ -221,7 +221,7 @@ const courses: Course[] = [
   {
     category: "Data Science",
     icon: Calculator,
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1551288049-bebda4e38f71-640x512.jpg",
     tag: "Popular",
     tagClass: "bg-primary text-primary-foreground",
     title: "Data Analysis",
@@ -239,7 +239,7 @@ const courses: Course[] = [
   {
     category: "Data Science",
     icon: PieChart,
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1460925895917-afdab827c52f-640x512.jpg",
     tag: "Trending",
     tagClass: "bg-forest text-forest-foreground",
     title: "Data Visualization",
@@ -257,7 +257,7 @@ const courses: Course[] = [
   {
     category: "AI & Machine Learning",
     icon: Workflow,
-    image: "https://images.unsplash.com/photo-1716191299980-a6e8827ba10b?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1716191299980-a6e8827ba10b-640x512.jpg",
     tag: "Hot",
     tagClass: "bg-destructive text-destructive-foreground",
     title: "AI & Automation",
@@ -275,7 +275,7 @@ const courses: Course[] = [
   {
     category: "AI & Machine Learning",
     icon: Rocket,
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1485827404703-89b55fcc595e-640x512.jpg",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "AI Product Development",
@@ -293,7 +293,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: Linkedin,
-    image: "https://images.unsplash.com/photo-1704382002666-5dc4fbb522c0?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1704382002666-5dc4fbb522c0-640x512.jpg",
     tag: "Popular",
     tagClass: "bg-primary text-primary-foreground",
     title: "LinkedIn Optimization",
@@ -311,7 +311,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: Target,
-    image: "https://images.unsplash.com/photo-1698047681432-006d2449c631?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1698047681432-006d2449c631-640x512.jpg",
     tag: "Trending",
     tagClass: "bg-forest text-forest-foreground",
     title: "Job Hunting & Career Preparation",
@@ -329,7 +329,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: Wallet,
-    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1496181133206-80ce9b88a853-640x512.jpg",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Online Earning for Bioscience Professionals",
@@ -347,7 +347,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: Briefcase,
-    image: "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1522199755839-a2bacb67c546-640x512.jpg",
     tag: "Popular",
     tagClass: "bg-primary text-primary-foreground",
     title: "Freelancing on Fiverr & Upwork",
@@ -365,7 +365,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: Target,
-    image: "https://images.unsplash.com/photo-1587560699334-bea93391dcef?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1587560699334-bea93391dcef-640x512.jpg",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Cold Calling",
@@ -383,7 +383,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: FileText,
-    image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?w=640&h=512&fit=crop&auto=format&q=70",
+    image: "/images/1557200134-90327ee9fafa-640x512.jpg",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Cold Emailing",
@@ -459,7 +459,7 @@ function CoursesPage() {
             </>
           }
           subtitle="Every course is designed with working practitioners, structured around real projects, and backed by internationally recognized certification."
-          image="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&h=500&fit=crop&auto=format&q=70"
+          image="/images/1516321318423-f06f85e504b3-1600x500.jpg"
         />
 
         <section className="bg-surface py-10">

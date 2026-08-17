@@ -65,25 +65,25 @@ const supportPoints = [
     icon: Users,
     title: "Direct Mentor Access",
     text: "Get 1-on-1 time with mentors, not just recorded lectures.",
-    img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1517048676732-d65bc937f952-480x280.jpg",
   },
   {
     icon: Globe,
     title: "Global Batch Community",
     text: "Learn alongside peers from different countries and time zones.",
-    img: "https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1568992687947-868a62a9f521-480x280.jpg",
   },
   {
     icon: Clock,
     title: "Flexible Timezones",
     text: "Live sessions and support scheduled to work globally.",
-    img: "https://images.unsplash.com/photo-1533749047139-189de3cf06d3?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1533749047139-189de3cf06d3-480x280.jpg",
   },
   {
     icon: LifeBuoy,
     title: "Dedicated Support Team",
     text: "Real humans to help whenever you get stuck.",
-    img: "https://images.unsplash.com/photo-1553775282-20af80779df7?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1553775282-20af80779df7-480x280.jpg",
   },
 ];
 

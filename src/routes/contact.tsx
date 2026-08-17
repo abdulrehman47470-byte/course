@@ -192,7 +192,7 @@ function ContactPage() {
             </>
           }
           subtitle="Questions about a course, certification, or mentorship? Send us a message and our team will get back to you."
-          image="https://images.unsplash.com/photo-1511376979163-f804dff7ad7b?w=1600&h=500&fit=crop&auto=format&q=70"
+          image="/images/1511376979163-f804dff7ad7b-1600x500.jpg"
         />
 
         <section className="bg-surface py-16">

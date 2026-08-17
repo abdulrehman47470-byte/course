@@ -26,37 +26,37 @@ const services = [
     icon: FileText,
     title: "AI CV Builder",
     text: "Upload your existing CV and generate an ATS-optimized version tailored to the roles you're targeting.",
-    img: "https://images.unsplash.com/photo-1698047681432-006d2449c631?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1698047681432-006d2449c631-480x280.jpg",
   },
   {
     icon: Briefcase,
     title: "Career & Job Portal",
     text: "Browse verified openings from our hiring partners, filtered to match your completed courses and skills.",
-    img: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1549923746-c502d488b3ea-480x280.jpg",
   },
   {
     icon: Target,
     title: "1-on-1 Career Coaching",
     text: "Work with a mentor on interview prep, salary negotiation, and choosing the right role for your goals.",
-    img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1517048676732-d65bc937f952-480x280.jpg",
   },
   {
     icon: Linkedin,
     title: "LinkedIn Branding",
     text: "Rebuild your profile to attract recruiters, with positioning that reflects your new, certified skillset.",
-    img: "https://images.unsplash.com/photo-1704382002666-5dc4fbb522c0?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1704382002666-5dc4fbb522c0-480x280.jpg",
   },
   {
     icon: Handshake,
     title: "Internship & Placement",
     text: "Hands-on placement support that connects course completion to real interviews with hiring partners.",
-    img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1521737604893-d14cc237f11d-480x280.jpg",
   },
   {
     icon: Globe,
     title: "Remote & Global Roles",
     text: "Guidance on tracking and applying to remote and international roles, not just local openings.",
-    img: "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?w=480&h=280&fit=crop&auto=format&q=70",
+    img: "/images/1522199755839-a2bacb67c546-480x280.jpg",
   },
 ];
 
@@ -80,7 +80,7 @@ function CareerServicesPage() {
             </>
           }
           subtitle="Skills alone don't get you hired — positioning does. Our career services turn every completed course into a real shot at the job you want."
-          image="https://images.unsplash.com/photo-1606836591695-4d58a73eba1e?w=1600&h=500&fit=crop&auto=format&q=70"
+          image="/images/1606836591695-4d58a73eba1e-1600x500.jpg"
         />
 
         <section className="bg-surface py-16">
