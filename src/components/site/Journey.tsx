@@ -67,25 +67,25 @@ const platform = [
     icon: PlayCircle,
     title: "Interactive Learning",
     text: "Engaging video lectures with real-world examples.",
-    img: "https://loremflickr.com/480/280/elearning,student?lock=111",
+    img: "https://images.unsplash.com/photo-1758685848208-e108b6af94cc?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: TrendingUp,
     title: "Track Your Progress",
     text: "Track your progress and achievements in real time.",
-    img: "https://loremflickr.com/480/280/analytics,dashboard?lock=112",
+    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: Award,
     title: "Earn Certificates",
     text: "Get CPD & IBEI recognized certificates globally.",
-    img: "https://loremflickr.com/480/280/certificate,diploma?lock=113",
+    img: "https://images.unsplash.com/photo-1638636241638-aef5120c5153?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: FileText,
     title: "AI CV Builder",
     text: "Create ATS-friendly CVs that get you interviews.",
-    img: "https://loremflickr.com/480/280/resume,cv?lock=114",
+    img: "https://images.unsplash.com/photo-1698047681432-006d2449c631?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: Briefcase,
@@ -97,7 +97,7 @@ const platform = [
     icon: Linkedin,
     title: "LinkedIn Integration",
     text: "Connect, build your network and get hired faster.",
-    img: "https://loremflickr.com/480/280/networking,business?lock=116",
+    img: "https://images.unsplash.com/photo-1704382002666-5dc4fbb522c0?w=480&h=280&fit=crop&auto=format&q=70",
   },
 ];
 

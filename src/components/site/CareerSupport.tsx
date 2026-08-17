@@ -65,7 +65,7 @@ const supportPoints = [
     icon: Users,
     title: "Direct Mentor Access",
     text: "Get 1-on-1 time with mentors, not just recorded lectures.",
-    img: "https://loremflickr.com/480/280/mentor,meeting?lock=101",
+    img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: Globe,
@@ -77,13 +77,13 @@ const supportPoints = [
     icon: Clock,
     title: "Flexible Timezones",
     text: "Live sessions and support scheduled to work globally.",
-    img: "https://loremflickr.com/480/280/clock,time?lock=103",
+    img: "https://images.unsplash.com/photo-1533749047139-189de3cf06d3?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: LifeBuoy,
     title: "Dedicated Support Team",
     text: "Real humans to help whenever you get stuck.",
-    img: "https://loremflickr.com/480/280/support,helpdesk?lock=104",
+    img: "https://images.unsplash.com/photo-1553775282-20af80779df7?w=480&h=280&fit=crop&auto=format&q=70",
   },
 ];
 

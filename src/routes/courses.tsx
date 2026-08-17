@@ -167,7 +167,7 @@ const courses: Course[] = [
   {
     category: "Bioscience & Research",
     icon: Dna,
-    image: "https://loremflickr.com/640/512/dna,genetics?lock=129",
+    image: "https://images.unsplash.com/photo-1643780668909-580822430155?w=640&h=512&fit=crop&auto=format&q=70",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Bioinformatics",
@@ -185,7 +185,7 @@ const courses: Course[] = [
   {
     category: "Bioscience & Research",
     icon: FlaskConical,
-    image: "https://loremflickr.com/640/512/pharmaceutical,laboratory?lock=130",
+    image: "https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=640&h=512&fit=crop&auto=format&q=70",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Drug Design",
@@ -203,7 +203,7 @@ const courses: Course[] = [
   {
     category: "Bioscience & Research",
     icon: Syringe,
-    image: "https://loremflickr.com/640/512/vaccine,syringe?lock=131",
+    image: "https://images.unsplash.com/photo-1611694449252-02453c27856a?w=640&h=512&fit=crop&auto=format&q=70",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Vaccine Design",
@@ -257,7 +257,7 @@ const courses: Course[] = [
   {
     category: "AI & Machine Learning",
     icon: Workflow,
-    image: "https://loremflickr.com/640/512/automation,robot?lock=134",
+    image: "https://images.unsplash.com/photo-1716191299980-a6e8827ba10b?w=640&h=512&fit=crop&auto=format&q=70",
     tag: "Hot",
     tagClass: "bg-destructive text-destructive-foreground",
     title: "AI & Automation",
@@ -275,7 +275,7 @@ const courses: Course[] = [
   {
     category: "AI & Machine Learning",
     icon: Rocket,
-    image: "https://loremflickr.com/640/512/ai,technology?lock=135",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=640&h=512&fit=crop&auto=format&q=70",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "AI Product Development",
@@ -293,7 +293,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: Linkedin,
-    image: "https://loremflickr.com/640/512/linkedin,professional?lock=136",
+    image: "https://images.unsplash.com/photo-1704382002666-5dc4fbb522c0?w=640&h=512&fit=crop&auto=format&q=70",
     tag: "Popular",
     tagClass: "bg-primary text-primary-foreground",
     title: "LinkedIn Optimization",
@@ -311,7 +311,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: Target,
-    image: "https://loremflickr.com/640/512/interview,resume?lock=137",
+    image: "https://images.unsplash.com/photo-1698047681432-006d2449c631?w=640&h=512&fit=crop&auto=format&q=70",
     tag: "Trending",
     tagClass: "bg-forest text-forest-foreground",
     title: "Job Hunting & Career Preparation",
@@ -329,7 +329,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: Wallet,
-    image: "https://loremflickr.com/640/512/freelancer,laptop?lock=138",
+    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=640&h=512&fit=crop&auto=format&q=70",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Online Earning for Bioscience Professionals",
@@ -347,7 +347,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: Briefcase,
-    image: "https://loremflickr.com/640/512/freelancer,remote?lock=139",
+    image: "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?w=640&h=512&fit=crop&auto=format&q=70",
     tag: "Popular",
     tagClass: "bg-primary text-primary-foreground",
     title: "Freelancing on Fiverr & Upwork",
@@ -365,7 +365,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: Target,
-    image: "https://loremflickr.com/640/512/phone,office?lock=140",
+    image: "https://images.unsplash.com/photo-1587560699334-bea93391dcef?w=640&h=512&fit=crop&auto=format&q=70",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Cold Calling",
@@ -383,7 +383,7 @@ const courses: Course[] = [
   {
     category: "Career Services",
     icon: FileText,
-    image: "https://loremflickr.com/640/512/email,marketing?lock=141",
+    image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?w=640&h=512&fit=crop&auto=format&q=70",
     tag: "New",
     tagClass: "bg-forest text-forest-foreground",
     title: "Cold Emailing",

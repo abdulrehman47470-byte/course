@@ -26,7 +26,7 @@ const services = [
     icon: FileText,
     title: "AI CV Builder",
     text: "Upload your existing CV and generate an ATS-optimized version tailored to the roles you're targeting.",
-    img: "https://loremflickr.com/480/280/resume,cv?lock=123",
+    img: "https://images.unsplash.com/photo-1698047681432-006d2449c631?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: Briefcase,
@@ -38,25 +38,25 @@ const services = [
     icon: Target,
     title: "1-on-1 Career Coaching",
     text: "Work with a mentor on interview prep, salary negotiation, and choosing the right role for your goals.",
-    img: "https://loremflickr.com/480/280/coaching,mentor?lock=125",
+    img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: Linkedin,
     title: "LinkedIn Branding",
     text: "Rebuild your profile to attract recruiters, with positioning that reflects your new, certified skillset.",
-    img: "https://loremflickr.com/480/280/branding,professional?lock=126",
+    img: "https://images.unsplash.com/photo-1704382002666-5dc4fbb522c0?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: Handshake,
     title: "Internship & Placement",
     text: "Hands-on placement support that connects course completion to real interviews with hiring partners.",
-    img: "https://loremflickr.com/480/280/internship,teamwork?lock=127",
+    img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: Globe,
     title: "Remote & Global Roles",
     text: "Guidance on tracking and applying to remote and international roles, not just local openings.",
-    img: "https://loremflickr.com/480/280/remote,laptop?lock=128",
+    img: "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?w=480&h=280&fit=crop&auto=format&q=70",
   },
 ];
 

@@ -28,25 +28,25 @@ const aiModules = [
     icon: Code2,
     title: "Python & R Foundations",
     text: "Build a strong coding foundation for automation and analysis — no prior programming background required.",
-    img: "https://loremflickr.com/480/280/programming,code?lock=119",
+    img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: Workflow,
     title: "Agentic Workflow Automation",
     text: "Design autonomous agents with tools like n8n to handle repetitive data tasks and free up time for high-value work.",
-    img: "https://loremflickr.com/480/280/automation,workflow?lock=120",
+    img: "https://images.unsplash.com/photo-1716191299980-a6e8827ba10b?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: Layers,
     title: "Industry-Specific Specializations",
     text: "Go deeper with track-specific capstones across AI, cybersecurity, marketing analytics, and web engineering.",
-    img: "https://loremflickr.com/480/280/biotechnology,laboratory?lock=121",
+    img: "https://images.unsplash.com/photo-1518152006812-edab29b069ac?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: FileSearch,
     title: "Portfolio & Case Study Building",
     text: "Turn every module into a case study you can show employers — real projects, not just certificates.",
-    img: "https://loremflickr.com/480/280/portfolio,laptop?lock=122",
+    img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=480&h=280&fit=crop&auto=format&q=70",
   },
 ];
 

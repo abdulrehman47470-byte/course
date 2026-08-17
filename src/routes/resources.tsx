@@ -37,19 +37,19 @@ const resourceTypes = [
     icon: FileText,
     title: "Blog",
     text: "Career guides, industry breakdowns, and tips from mentors on breaking into competitive fields.",
-    img: "https://loremflickr.com/480/280/writing,blog?lock=142",
+    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: BookOpen,
     title: "Guides & Playbooks",
     text: "Field-by-field roadmaps, project ideas, and worksheets to help you plan your next skill investment.",
-    img: "https://loremflickr.com/480/280/notebook,book?lock=143",
+    img: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=480&h=280&fit=crop&auto=format&q=70",
   },
   {
     icon: PlayCircle,
     title: "Webinars",
     text: "Live and recorded sessions with mentors covering AI, data, certification, and career strategy.",
-    img: "https://loremflickr.com/480/280/webinar,videocall?lock=144",
+    img: "https://images.unsplash.com/photo-1616531770192-6eaea74c2456?w=480&h=280&fit=crop&auto=format&q=70",
   },
 ];
 
