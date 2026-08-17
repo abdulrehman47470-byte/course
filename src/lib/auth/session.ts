@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouteContext, useRouter } from "@tanstack/react-router";
+import { getSupabaseBrowserClient } from "@/lib/supabase/browser";
 import type { SessionUser } from "./server-fns";
 
 /**
@@ -20,33 +21,17 @@ export function useSession(): SessionUser | null {
   }, [context.sessionUser]);
 
   useEffect(() => {
-    let unsubscribe: (() => void) | undefined;
-    let cancelled = false;
-
-    // Dynamically imported so the (large) Supabase JS SDK isn't part of the
-    // Header's initial bundle — every page renders Header, so keeping this
-    // import lazy keeps first paint/hydration from waiting on it. The nav's
-    // signed-in/out state itself already comes from the SSR-seeded context
-    // above; this subscription only keeps it live for in-page auth events.
-    import("@/lib/supabase/browser").then(({ getSupabaseBrowserClient }) => {
-      if (cancelled) return;
-      const supabase = getSupabaseBrowserClient();
-      const {
-        data: { subscription },
-      } = supabase.auth.onAuthStateChange((event) => {
-        if (event === "SIGNED_OUT") {
-          setSessionUser(null);
-        } else if (event === "SIGNED_IN") {
-          router.invalidate();
-        }
-      });
-      unsubscribe = () => subscription.unsubscribe();
+    const supabase = getSupabaseBrowserClient();
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") {
+        setSessionUser(null);
+      } else if (event === "SIGNED_IN") {
+        router.invalidate();
+      }
     });
-
-    return () => {
-      cancelled = true;
-      unsubscribe?.();
-    };
+    return () => subscription.unsubscribe();
   }, [router]);
 
   return sessionUser;
