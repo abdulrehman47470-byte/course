@@ -24,6 +24,7 @@ import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as VerifyEmailRouteImport } from './routes/verify-email'
+import { Route as AuthedPaymentRouteImport } from './routes/_authed/payment'
 import { Route as AuthedAdminAdminIndexRouteImport } from './routes/_authed-admin/admin/index'
 import { Route as AuthedAdminAdminAnalyticsRouteImport } from './routes/_authed-admin/admin/analytics'
 import { Route as AuthedAdminAdminCertificatesRouteImport } from './routes/_authed-admin/admin/certificates'
@@ -116,6 +117,11 @@ const VerifyEmailRoute = VerifyEmailRouteImport.update({
   id: '/verify-email',
   path: '/verify-email',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthedPaymentRoute = AuthedPaymentRouteImport.update({
+  id: '/payment',
+  path: '/payment',
+  getParentRoute: () => AuthedRoute,
 } as any)
 const AuthedAdminAdminIndexRoute = AuthedAdminAdminIndexRouteImport.update({
   id: '/admin/',
@@ -236,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/verify-email': typeof VerifyEmailRoute
+  '/payment': typeof AuthedPaymentRoute
   '/admin/analytics': typeof AuthedAdminAdminAnalyticsRoute
   '/admin/certificates': typeof AuthedAdminAdminCertificatesRoute
   '/admin/courses': typeof AuthedAdminAdminCoursesRoute
@@ -270,6 +277,7 @@ export interface FileRoutesByTo {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/verify-email': typeof VerifyEmailRoute
+  '/payment': typeof AuthedPaymentRoute
   '/admin/analytics': typeof AuthedAdminAdminAnalyticsRoute
   '/admin/certificates': typeof AuthedAdminAdminCertificatesRoute
   '/admin/courses': typeof AuthedAdminAdminCoursesRoute
@@ -307,6 +315,7 @@ export interface FileRoutesById {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/verify-email': typeof VerifyEmailRoute
+  '/_authed/payment': typeof AuthedPaymentRoute
   '/_authed-admin/admin/analytics': typeof AuthedAdminAdminAnalyticsRoute
   '/_authed-admin/admin/certificates': typeof AuthedAdminAdminCertificatesRoute
   '/_authed-admin/admin/courses': typeof AuthedAdminAdminCoursesRoute
@@ -343,6 +352,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/verify-email'
+    | '/payment'
     | '/admin/analytics'
     | '/admin/certificates'
     | '/admin/courses'
@@ -377,6 +387,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/verify-email'
+    | '/payment'
     | '/admin/analytics'
     | '/admin/certificates'
     | '/admin/courses'
@@ -413,6 +424,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/verify-email'
+    | '/_authed/payment'
     | '/_authed-admin/admin/analytics'
     | '/_authed-admin/admin/certificates'
     | '/_authed-admin/admin/courses'
@@ -559,6 +571,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VerifyEmailRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authed/payment': {
+      id: '/_authed/payment'
+      path: '/payment'
+      fullPath: '/payment'
+      preLoaderRoute: typeof AuthedPaymentRouteImport
+      parentRoute: typeof AuthedRoute
+    }
     '/_authed-admin/admin/': {
       id: '/_authed-admin/admin/'
       path: '/admin'
@@ -696,6 +715,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthedRouteChildren {
+  AuthedPaymentRoute: typeof AuthedPaymentRoute
   AuthedDashboardCareerToolkitRoute: typeof AuthedDashboardCareerToolkitRoute
   AuthedDashboardCertificatesRoute: typeof AuthedDashboardCertificatesRoute
   AuthedDashboardCoursesRoute: typeof AuthedDashboardCoursesRoute
@@ -707,6 +727,7 @@ interface AuthedRouteChildren {
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
+  AuthedPaymentRoute: AuthedPaymentRoute,
   AuthedDashboardCareerToolkitRoute: AuthedDashboardCareerToolkitRoute,
   AuthedDashboardCertificatesRoute: AuthedDashboardCertificatesRoute,
   AuthedDashboardCoursesRoute: AuthedDashboardCoursesRoute,

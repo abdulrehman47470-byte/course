@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AlertTriangle, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import { Header } from "@/components/site/Header";
-import { AuthCard } from "@/components/auth/AuthCard";
+import {
+  AuthCard,
+  authErrorClass,
+  authInputClass,
+  authSubmitClass,
+} from "@/components/auth/AuthCard";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 const title = "Verify Your Email — CareerBooster";
@@ -11,6 +16,57 @@ export const Route = createFileRoute("/verify-email")({
   head: () => ({ meta: [{ title }] }),
   component: VerifyEmailPage,
 });
+
+function ResendForm() {
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setState("sending");
+    setError(null);
+    const supabase = getSupabaseBrowserClient();
+    const { error: resendError } = await supabase.auth.resend({
+      type: "signup",
+      email: email.trim(),
+      options: { emailRedirectTo: `${window.location.origin}/verify-email` },
+    });
+    if (resendError) {
+      setError(resendError.message);
+      setState("idle");
+      return;
+    }
+    setState("sent");
+  }
+
+  if (state === "sent") {
+    return (
+      <p className="mt-4 text-[13px] font-medium text-primary">
+        New link sent to {email}. Check your inbox.
+      </p>
+    );
+  }
+
+  return (
+    <form onSubmit={onSubmit} noValidate className="mt-4 flex flex-col gap-2 sm:flex-row">
+      <input
+        type="email"
+        required
+        placeholder="you@example.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className={authInputClass(!!error) + " mt-0"}
+      />
+      <button disabled={state === "sending"} className={authSubmitClass + " sm:w-auto sm:shrink-0"}>
+        {state === "sending" && <Loader2 className="size-4 animate-spin" />}
+        Resend link
+      </button>
+      {error && <p className={authErrorClass}>{error}</p>}
+    </form>
+  );
+}
 
 function VerifyEmailPage() {
   const [status, setStatus] = useState<"checking" | "verified" | "failed">("checking");
@@ -50,13 +106,13 @@ function VerifyEmailPage() {
             </span>
             <p className="mt-4 text-[14px] font-semibold">You're verified!</p>
             <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">
-              Your account is active. Head to your dashboard to get started.
+              Your account is active. Complete payment to unlock your dashboard and courses.
             </p>
             <Link
-              to="/dashboard"
+              to="/payment"
               className="mt-5 inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-[13px] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
             >
-              Go to dashboard <ArrowRight className="size-4" />
+              Continue to payment <ArrowRight className="size-4" />
             </Link>
           </div>
         )}
@@ -67,11 +123,11 @@ function VerifyEmailPage() {
             </span>
             <p className="mt-4 text-[14px] font-semibold">Verification link invalid or expired</p>
             <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">
-              Try signing in — if your email still isn't confirmed, you can resend the link from
-              there.
+              Enter your email to get a new link — you can request as many as you need.
             </p>
-            <Link to="/sign-in" className="mt-5 inline-flex text-[13px] font-semibold text-primary">
-              Go to sign in
+            <ResendForm />
+            <Link to="/sign-in" className="mt-4 inline-flex text-[13px] font-semibold text-primary">
+              Already verified? Go to sign in
             </Link>
           </div>
         )}

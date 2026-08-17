@@ -40,7 +40,11 @@ export function SignInForm() {
     const email = getValues("email");
     if (!email) return;
     const supabase = getSupabaseBrowserClient();
-    await supabase.auth.resend({ type: "signup", email });
+    await supabase.auth.resend({
+      type: "signup",
+      email,
+      options: { emailRedirectTo: `${window.location.origin}/verify-email` },
+    });
     setResent(true);
   }
 

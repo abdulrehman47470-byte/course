@@ -9,6 +9,7 @@
 export type UserRole = "student" | "instructor" | "admin";
 export type CourseStatus = "draft" | "published" | "archived";
 export type EnrollmentStatus = "active" | "completed" | "refunded" | "revoked";
+export type PaymentSubmissionStatus = "pending" | "approved" | "rejected";
 
 export type Database = {
   public: {
@@ -149,6 +150,46 @@ export type Database = {
         Update: Partial<Database["public"]["Tables"]["newsletter_subscribers"]["Insert"]>;
         Relationships: [];
       };
+      payment_submissions: {
+        Row: {
+          id: string;
+          student_id: string;
+          method: string;
+          reference: string;
+          status: PaymentSubmissionStatus;
+          submitted_at: string;
+          reviewed_at: string | null;
+          reviewed_by: string | null;
+          notes: string | null;
+        };
+        Insert: {
+          id?: string;
+          student_id: string;
+          method?: string;
+          reference: string;
+          status?: PaymentSubmissionStatus;
+          reviewed_at?: string | null;
+          reviewed_by?: string | null;
+          notes?: string | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["payment_submissions"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "payment_submissions_student_id_fkey";
+            columns: ["student_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "payment_submissions_reviewed_by_fkey";
+            columns: ["reviewed_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
@@ -156,6 +197,7 @@ export type Database = {
       user_role: UserRole;
       course_status: CourseStatus;
       enrollment_status: EnrollmentStatus;
+      payment_submission_status: PaymentSubmissionStatus;
     };
     CompositeTypes: Record<string, never>;
   };
@@ -164,3 +206,4 @@ export type Database = {
 export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 export type Course = Database["public"]["Tables"]["courses"]["Row"];
 export type Enrollment = Database["public"]["Tables"]["enrollments"]["Row"];
+export type PaymentSubmission = Database["public"]["Tables"]["payment_submissions"]["Row"];
