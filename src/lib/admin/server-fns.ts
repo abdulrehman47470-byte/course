@@ -1,6 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
-import type { Course, Enrollment, PaymentSubmission, Profile } from "@/lib/supabase/types";
+import type {
+  Course,
+  Enrollment,
+  Lesson,
+  PaymentSubmission,
+  Profile,
+  Quiz,
+  QuizOption,
+  QuizQuestion,
+} from "@/lib/supabase/types";
 import { z } from "zod";
 import {
   createCourseSchema,
@@ -14,6 +23,14 @@ import {
   type UpdateEnrollmentValues,
   type UpdateUserRoleValues,
 } from "./schemas";
+import {
+  createLessonSchema,
+  createQuizQuestionSchema,
+  createQuizSchema,
+  type CreateLessonValues,
+  type CreateQuizQuestionValues,
+  type CreateQuizValues,
+} from "@/lib/courses/schemas";
 
 // All of these rely on RLS's is_admin() policies — they run as the calling
 // user via the request-scoped server client, not the service-role client.
@@ -213,6 +230,133 @@ export const reviewPayment = createServerFn({ method: "POST" })
       p_decision: data.decision,
       p_notes: data.notes || null,
     });
+    if (error) throw new Error(error.message);
+    return { success: true as const };
+  });
+
+// --- Course content (lessons/quizzes) management ---
+
+export type LessonAdminRow = Lesson & { quiz: (Quiz & { questionCount: number }) | null };
+
+export const listLessonsAdmin = createServerFn({ method: "GET" })
+  .validator((input: unknown) => z.object({ courseId: z.string().uuid() }).parse(input))
+  .handler(async ({ data }): Promise<LessonAdminRow[]> => {
+    const supabase = getSupabaseServerClient();
+    const { data: lessons } = await supabase
+      .from("lessons")
+      .select("*, quiz:quizzes(*, questions:quiz_questions(count))")
+      .eq("course_id", data.courseId)
+      .order("order_index");
+
+    return (
+      (lessons ?? []) as unknown as (Lesson & {
+        quiz: (Quiz & { questions: { count: number }[] }) | null;
+      })[]
+    ).map((l) => ({
+      ...l,
+      quiz: l.quiz ? { ...l.quiz, questionCount: l.quiz.questions?.[0]?.count ?? 0 } : null,
+    }));
+  });
+
+export const createLesson = createServerFn({ method: "POST" })
+  .validator((input: unknown): CreateLessonValues => createLessonSchema.parse(input))
+  .handler(async ({ data }) => {
+    const supabase = getSupabaseServerClient();
+    const { data: existing } = await supabase
+      .from("lessons")
+      .select("order_index")
+      .eq("course_id", data.courseId)
+      .order("order_index", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    const nextOrder = (existing?.order_index ?? -1) + 1;
+
+    const { error } = await supabase.from("lessons").insert({
+      course_id: data.courseId,
+      title: data.title,
+      video_url: data.videoUrl,
+      order_index: nextOrder,
+    });
+    if (error) throw new Error(error.message);
+    return { success: true as const };
+  });
+
+export const deleteLesson = createServerFn({ method: "POST" })
+  .validator((input: unknown) => z.object({ lessonId: z.string().uuid() }).parse(input))
+  .handler(async ({ data }) => {
+    const supabase = getSupabaseServerClient();
+    const { error } = await supabase.from("lessons").delete().eq("id", data.lessonId);
+    if (error) throw new Error(error.message);
+    return { success: true as const };
+  });
+
+export const createQuiz = createServerFn({ method: "POST" })
+  .validator((input: unknown): CreateQuizValues => createQuizSchema.parse(input))
+  .handler(async ({ data }) => {
+    const supabase = getSupabaseServerClient();
+    const { error } = await supabase.from("quizzes").insert({
+      lesson_id: data.lessonId,
+      title: data.title || "Quiz",
+      pass_percent: data.passPercent,
+    });
+    if (error) throw new Error(error.message);
+    return { success: true as const };
+  });
+
+export type QuizQuestionAdminRow = QuizQuestion & { options: QuizOption[] };
+
+export const getQuizAdmin = createServerFn({ method: "GET" })
+  .validator((input: unknown) => z.object({ quizId: z.string().uuid() }).parse(input))
+  .handler(async ({ data }): Promise<QuizQuestionAdminRow[]> => {
+    const supabase = getSupabaseServerClient();
+    const { data: questions } = await supabase
+      .from("quiz_questions")
+      .select("*, options:quiz_options(*)")
+      .eq("quiz_id", data.quizId)
+      .order("order_index");
+    return ((questions ?? []) as unknown as QuizQuestionAdminRow[]).map((q) => ({
+      ...q,
+      options: q.options.sort((a, b) => a.order_index - b.order_index),
+    }));
+  });
+
+export const createQuizQuestion = createServerFn({ method: "POST" })
+  .validator((input: unknown): CreateQuizQuestionValues => createQuizQuestionSchema.parse(input))
+  .handler(async ({ data }) => {
+    const supabase = getSupabaseServerClient();
+    const { data: existing } = await supabase
+      .from("quiz_questions")
+      .select("order_index")
+      .eq("quiz_id", data.quizId)
+      .order("order_index", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    const nextOrder = (existing?.order_index ?? -1) + 1;
+
+    const { data: question, error } = await supabase
+      .from("quiz_questions")
+      .insert({ quiz_id: data.quizId, question_text: data.questionText, order_index: nextOrder })
+      .select("id")
+      .single();
+    if (error || !question) throw new Error(error?.message ?? "Could not create the question.");
+
+    const { error: optionsError } = await supabase.from("quiz_options").insert(
+      data.options.map((o, i) => ({
+        question_id: question.id,
+        option_text: o.text,
+        is_correct: o.isCorrect,
+        order_index: i,
+      })),
+    );
+    if (optionsError) throw new Error(optionsError.message);
+    return { success: true as const };
+  });
+
+export const deleteQuizQuestion = createServerFn({ method: "POST" })
+  .validator((input: unknown) => z.object({ questionId: z.string().uuid() }).parse(input))
+  .handler(async ({ data }) => {
+    const supabase = getSupabaseServerClient();
+    const { error } = await supabase.from("quiz_questions").delete().eq("id", data.questionId);
     if (error) throw new Error(error.message);
     return { success: true as const };
   });

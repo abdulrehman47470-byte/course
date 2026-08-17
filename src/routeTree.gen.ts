@@ -48,7 +48,9 @@ import { Route as AuthedDashboardProfileRouteImport } from './routes/_authed/das
 import { Route as AuthedDashboardProgressRouteImport } from './routes/_authed/dashboard/progress'
 import { Route as AuthedDashboardScholarshipsRouteImport } from './routes/_authed/dashboard/scholarships'
 import { Route as AuthedDashboardSettingsRouteImport } from './routes/_authed/dashboard/settings'
+import { Route as AuthedAdminAdminCoursesCourseIdRouteImport } from './routes/_authed-admin/admin/courses.$courseId'
 import { Route as AuthedAdminAdminStudentsStudentIdRouteImport } from './routes/_authed-admin/admin/students.$studentId'
+import { Route as AuthedDashboardCoursesCourseIdRouteImport } from './routes/_authed/dashboard/courses.$courseId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -255,11 +257,23 @@ const AuthedDashboardSettingsRoute = AuthedDashboardSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthedDashboardRoute,
 } as any)
+const AuthedAdminAdminCoursesCourseIdRoute =
+  AuthedAdminAdminCoursesCourseIdRouteImport.update({
+    id: '/$courseId',
+    path: '/$courseId',
+    getParentRoute: () => AuthedAdminAdminCoursesRoute,
+  } as any)
 const AuthedAdminAdminStudentsStudentIdRoute =
   AuthedAdminAdminStudentsStudentIdRouteImport.update({
     id: '/admin/students/$studentId',
     path: '/admin/students/$studentId',
     getParentRoute: () => AuthedAdminRoute,
+  } as any)
+const AuthedDashboardCoursesCourseIdRoute =
+  AuthedDashboardCoursesCourseIdRouteImport.update({
+    id: '/$courseId',
+    path: '/$courseId',
+    getParentRoute: () => AuthedDashboardCoursesRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -280,7 +294,7 @@ export interface FileRoutesByFullPath {
   '/payment': typeof AuthedPaymentRoute
   '/admin/analytics': typeof AuthedAdminAdminAnalyticsRoute
   '/admin/certificates': typeof AuthedAdminAdminCertificatesRoute
-  '/admin/courses': typeof AuthedAdminAdminCoursesRoute
+  '/admin/courses': typeof AuthedAdminAdminCoursesRouteWithChildren
   '/admin/ebooks': typeof AuthedAdminAdminEbooksRoute
   '/admin/enrollments': typeof AuthedAdminAdminEnrollmentsRoute
   '/admin/job-listings': typeof AuthedAdminAdminJobListingsRoute
@@ -291,7 +305,7 @@ export interface FileRoutesByFullPath {
   '/admin/users': typeof AuthedAdminAdminUsersRoute
   '/dashboard/career-toolkit': typeof AuthedDashboardCareerToolkitRoute
   '/dashboard/certificates': typeof AuthedDashboardCertificatesRoute
-  '/dashboard/courses': typeof AuthedDashboardCoursesRoute
+  '/dashboard/courses': typeof AuthedDashboardCoursesRouteWithChildren
   '/dashboard/ebook': typeof AuthedDashboardEbookRoute
   '/dashboard/job-hunting': typeof AuthedDashboardJobHuntingRoute
   '/dashboard/profile': typeof AuthedDashboardProfileRoute
@@ -300,7 +314,9 @@ export interface FileRoutesByFullPath {
   '/dashboard/settings': typeof AuthedDashboardSettingsRoute
   '/admin/': typeof AuthedAdminAdminIndexRoute
   '/dashboard/': typeof AuthedDashboardIndexRoute
+  '/admin/courses/$courseId': typeof AuthedAdminAdminCoursesCourseIdRoute
   '/admin/students/$studentId': typeof AuthedAdminAdminStudentsStudentIdRoute
+  '/dashboard/courses/$courseId': typeof AuthedDashboardCoursesCourseIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -319,7 +335,7 @@ export interface FileRoutesByTo {
   '/payment': typeof AuthedPaymentRoute
   '/admin/analytics': typeof AuthedAdminAdminAnalyticsRoute
   '/admin/certificates': typeof AuthedAdminAdminCertificatesRoute
-  '/admin/courses': typeof AuthedAdminAdminCoursesRoute
+  '/admin/courses': typeof AuthedAdminAdminCoursesRouteWithChildren
   '/admin/ebooks': typeof AuthedAdminAdminEbooksRoute
   '/admin/enrollments': typeof AuthedAdminAdminEnrollmentsRoute
   '/admin/job-listings': typeof AuthedAdminAdminJobListingsRoute
@@ -330,7 +346,7 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AuthedAdminAdminUsersRoute
   '/dashboard/career-toolkit': typeof AuthedDashboardCareerToolkitRoute
   '/dashboard/certificates': typeof AuthedDashboardCertificatesRoute
-  '/dashboard/courses': typeof AuthedDashboardCoursesRoute
+  '/dashboard/courses': typeof AuthedDashboardCoursesRouteWithChildren
   '/dashboard/ebook': typeof AuthedDashboardEbookRoute
   '/dashboard/job-hunting': typeof AuthedDashboardJobHuntingRoute
   '/dashboard/profile': typeof AuthedDashboardProfileRoute
@@ -339,7 +355,9 @@ export interface FileRoutesByTo {
   '/dashboard/settings': typeof AuthedDashboardSettingsRoute
   '/admin': typeof AuthedAdminAdminIndexRoute
   '/dashboard': typeof AuthedDashboardIndexRoute
+  '/admin/courses/$courseId': typeof AuthedAdminAdminCoursesCourseIdRoute
   '/admin/students/$studentId': typeof AuthedAdminAdminStudentsStudentIdRoute
+  '/dashboard/courses/$courseId': typeof AuthedDashboardCoursesCourseIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -362,7 +380,7 @@ export interface FileRoutesById {
   '/_authed/payment': typeof AuthedPaymentRoute
   '/_authed-admin/admin/analytics': typeof AuthedAdminAdminAnalyticsRoute
   '/_authed-admin/admin/certificates': typeof AuthedAdminAdminCertificatesRoute
-  '/_authed-admin/admin/courses': typeof AuthedAdminAdminCoursesRoute
+  '/_authed-admin/admin/courses': typeof AuthedAdminAdminCoursesRouteWithChildren
   '/_authed-admin/admin/ebooks': typeof AuthedAdminAdminEbooksRoute
   '/_authed-admin/admin/enrollments': typeof AuthedAdminAdminEnrollmentsRoute
   '/_authed-admin/admin/job-listings': typeof AuthedAdminAdminJobListingsRoute
@@ -373,7 +391,7 @@ export interface FileRoutesById {
   '/_authed-admin/admin/users': typeof AuthedAdminAdminUsersRoute
   '/_authed/dashboard/career-toolkit': typeof AuthedDashboardCareerToolkitRoute
   '/_authed/dashboard/certificates': typeof AuthedDashboardCertificatesRoute
-  '/_authed/dashboard/courses': typeof AuthedDashboardCoursesRoute
+  '/_authed/dashboard/courses': typeof AuthedDashboardCoursesRouteWithChildren
   '/_authed/dashboard/ebook': typeof AuthedDashboardEbookRoute
   '/_authed/dashboard/job-hunting': typeof AuthedDashboardJobHuntingRoute
   '/_authed/dashboard/profile': typeof AuthedDashboardProfileRoute
@@ -382,7 +400,9 @@ export interface FileRoutesById {
   '/_authed/dashboard/settings': typeof AuthedDashboardSettingsRoute
   '/_authed-admin/admin/': typeof AuthedAdminAdminIndexRoute
   '/_authed/dashboard/': typeof AuthedDashboardIndexRoute
+  '/_authed-admin/admin/courses/$courseId': typeof AuthedAdminAdminCoursesCourseIdRoute
   '/_authed-admin/admin/students/$studentId': typeof AuthedAdminAdminStudentsStudentIdRoute
+  '/_authed/dashboard/courses/$courseId': typeof AuthedDashboardCoursesCourseIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -424,7 +444,9 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/admin/'
     | '/dashboard/'
+    | '/admin/courses/$courseId'
     | '/admin/students/$studentId'
+    | '/dashboard/courses/$courseId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -463,7 +485,9 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/admin'
     | '/dashboard'
+    | '/admin/courses/$courseId'
     | '/admin/students/$studentId'
+    | '/dashboard/courses/$courseId'
   id:
     | '__root__'
     | '/'
@@ -505,7 +529,9 @@ export interface FileRouteTypes {
     | '/_authed/dashboard/settings'
     | '/_authed-admin/admin/'
     | '/_authed/dashboard/'
+    | '/_authed-admin/admin/courses/$courseId'
     | '/_authed-admin/admin/students/$studentId'
+    | '/_authed/dashboard/courses/$courseId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -801,6 +827,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedDashboardSettingsRouteImport
       parentRoute: typeof AuthedDashboardRoute
     }
+    '/_authed-admin/admin/courses/$courseId': {
+      id: '/_authed-admin/admin/courses/$courseId'
+      path: '/$courseId'
+      fullPath: '/admin/courses/$courseId'
+      preLoaderRoute: typeof AuthedAdminAdminCoursesCourseIdRouteImport
+      parentRoute: typeof AuthedAdminAdminCoursesRoute
+    }
     '/_authed-admin/admin/students/$studentId': {
       id: '/_authed-admin/admin/students/$studentId'
       path: '/admin/students/$studentId'
@@ -808,13 +841,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedAdminAdminStudentsStudentIdRouteImport
       parentRoute: typeof AuthedAdminRoute
     }
+    '/_authed/dashboard/courses/$courseId': {
+      id: '/_authed/dashboard/courses/$courseId'
+      path: '/$courseId'
+      fullPath: '/dashboard/courses/$courseId'
+      preLoaderRoute: typeof AuthedDashboardCoursesCourseIdRouteImport
+      parentRoute: typeof AuthedDashboardCoursesRoute
+    }
   }
 }
+
+interface AuthedDashboardCoursesRouteChildren {
+  AuthedDashboardCoursesCourseIdRoute: typeof AuthedDashboardCoursesCourseIdRoute
+}
+
+const AuthedDashboardCoursesRouteChildren: AuthedDashboardCoursesRouteChildren =
+  {
+    AuthedDashboardCoursesCourseIdRoute: AuthedDashboardCoursesCourseIdRoute,
+  }
+
+const AuthedDashboardCoursesRouteWithChildren =
+  AuthedDashboardCoursesRoute._addFileChildren(
+    AuthedDashboardCoursesRouteChildren,
+  )
 
 interface AuthedDashboardRouteChildren {
   AuthedDashboardCareerToolkitRoute: typeof AuthedDashboardCareerToolkitRoute
   AuthedDashboardCertificatesRoute: typeof AuthedDashboardCertificatesRoute
-  AuthedDashboardCoursesRoute: typeof AuthedDashboardCoursesRoute
+  AuthedDashboardCoursesRoute: typeof AuthedDashboardCoursesRouteWithChildren
   AuthedDashboardEbookRoute: typeof AuthedDashboardEbookRoute
   AuthedDashboardJobHuntingRoute: typeof AuthedDashboardJobHuntingRoute
   AuthedDashboardProfileRoute: typeof AuthedDashboardProfileRoute
@@ -827,7 +881,7 @@ interface AuthedDashboardRouteChildren {
 const AuthedDashboardRouteChildren: AuthedDashboardRouteChildren = {
   AuthedDashboardCareerToolkitRoute: AuthedDashboardCareerToolkitRoute,
   AuthedDashboardCertificatesRoute: AuthedDashboardCertificatesRoute,
-  AuthedDashboardCoursesRoute: AuthedDashboardCoursesRoute,
+  AuthedDashboardCoursesRoute: AuthedDashboardCoursesRouteWithChildren,
   AuthedDashboardEbookRoute: AuthedDashboardEbookRoute,
   AuthedDashboardJobHuntingRoute: AuthedDashboardJobHuntingRoute,
   AuthedDashboardProfileRoute: AuthedDashboardProfileRoute,
@@ -854,10 +908,24 @@ const AuthedRouteChildren: AuthedRouteChildren = {
 const AuthedRouteWithChildren =
   AuthedRoute._addFileChildren(AuthedRouteChildren)
 
+interface AuthedAdminAdminCoursesRouteChildren {
+  AuthedAdminAdminCoursesCourseIdRoute: typeof AuthedAdminAdminCoursesCourseIdRoute
+}
+
+const AuthedAdminAdminCoursesRouteChildren: AuthedAdminAdminCoursesRouteChildren =
+  {
+    AuthedAdminAdminCoursesCourseIdRoute: AuthedAdminAdminCoursesCourseIdRoute,
+  }
+
+const AuthedAdminAdminCoursesRouteWithChildren =
+  AuthedAdminAdminCoursesRoute._addFileChildren(
+    AuthedAdminAdminCoursesRouteChildren,
+  )
+
 interface AuthedAdminRouteChildren {
   AuthedAdminAdminAnalyticsRoute: typeof AuthedAdminAdminAnalyticsRoute
   AuthedAdminAdminCertificatesRoute: typeof AuthedAdminAdminCertificatesRoute
-  AuthedAdminAdminCoursesRoute: typeof AuthedAdminAdminCoursesRoute
+  AuthedAdminAdminCoursesRoute: typeof AuthedAdminAdminCoursesRouteWithChildren
   AuthedAdminAdminEbooksRoute: typeof AuthedAdminAdminEbooksRoute
   AuthedAdminAdminEnrollmentsRoute: typeof AuthedAdminAdminEnrollmentsRoute
   AuthedAdminAdminJobListingsRoute: typeof AuthedAdminAdminJobListingsRoute
@@ -873,7 +941,7 @@ interface AuthedAdminRouteChildren {
 const AuthedAdminRouteChildren: AuthedAdminRouteChildren = {
   AuthedAdminAdminAnalyticsRoute: AuthedAdminAdminAnalyticsRoute,
   AuthedAdminAdminCertificatesRoute: AuthedAdminAdminCertificatesRoute,
-  AuthedAdminAdminCoursesRoute: AuthedAdminAdminCoursesRoute,
+  AuthedAdminAdminCoursesRoute: AuthedAdminAdminCoursesRouteWithChildren,
   AuthedAdminAdminEbooksRoute: AuthedAdminAdminEbooksRoute,
   AuthedAdminAdminEnrollmentsRoute: AuthedAdminAdminEnrollmentsRoute,
   AuthedAdminAdminJobListingsRoute: AuthedAdminAdminJobListingsRoute,

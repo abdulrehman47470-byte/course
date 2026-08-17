@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Plus, X } from "lucide-react";
@@ -127,6 +127,7 @@ function AdminCoursesPage() {
               <th className="px-5 py-3.5 font-semibold">Category</th>
               <th className="px-5 py-3.5 font-semibold">Status</th>
               <th className="px-5 py-3.5 font-semibold">Price</th>
+              <th className="px-5 py-3.5 font-semibold" />
             </tr>
           </thead>
           <tbody>
@@ -144,11 +145,20 @@ function AdminCoursesPage() {
                 <td className="px-5 py-3.5 text-muted-foreground">
                   {(c.price_cents / 100).toFixed(2)} {c.currency}
                 </td>
+                <td className="px-5 py-3.5 text-right">
+                  <Link
+                    to="/admin/courses/$courseId"
+                    params={{ courseId: c.id }}
+                    className="text-[12.5px] font-semibold text-primary"
+                  >
+                    Manage content
+                  </Link>
+                </td>
               </tr>
             ))}
             {courses.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-5 py-10 text-center text-muted-foreground">
+                <td colSpan={5} className="px-5 py-10 text-center text-muted-foreground">
                   No courses yet — create the first one above.
                 </td>
               </tr>

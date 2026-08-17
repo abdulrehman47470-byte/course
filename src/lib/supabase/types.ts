@@ -254,6 +254,158 @@ export type Database = {
         Update: Partial<Database["public"]["Tables"]["scholarships"]["Insert"]>;
         Relationships: [];
       };
+      lessons: {
+        Row: {
+          id: string;
+          course_id: string;
+          title: string;
+          video_url: string;
+          order_index: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          course_id: string;
+          title: string;
+          video_url: string;
+          order_index: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["lessons"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "lessons_course_id_fkey";
+            columns: ["course_id"];
+            isOneToOne: false;
+            referencedRelation: "courses";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      quizzes: {
+        Row: {
+          id: string;
+          lesson_id: string;
+          title: string;
+          pass_percent: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          lesson_id: string;
+          title?: string;
+          pass_percent?: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["quizzes"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "quizzes_lesson_id_fkey";
+            columns: ["lesson_id"];
+            isOneToOne: true;
+            referencedRelation: "lessons";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      quiz_questions: {
+        Row: {
+          id: string;
+          quiz_id: string;
+          question_text: string;
+          order_index: number;
+        };
+        Insert: {
+          id?: string;
+          quiz_id: string;
+          question_text: string;
+          order_index: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["quiz_questions"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "quiz_questions_quiz_id_fkey";
+            columns: ["quiz_id"];
+            isOneToOne: false;
+            referencedRelation: "quizzes";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      quiz_options: {
+        Row: {
+          id: string;
+          question_id: string;
+          option_text: string;
+          is_correct: boolean;
+          order_index: number;
+        };
+        Insert: {
+          id?: string;
+          question_id: string;
+          option_text: string;
+          is_correct?: boolean;
+          order_index: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["quiz_options"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "quiz_options_question_id_fkey";
+            columns: ["question_id"];
+            isOneToOne: false;
+            referencedRelation: "quiz_questions";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      lesson_progress: {
+        Row: {
+          id: string;
+          student_id: string;
+          lesson_id: string;
+          completed_at: string;
+        };
+        Insert: {
+          id?: string;
+          student_id: string;
+          lesson_id: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["lesson_progress"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "lesson_progress_lesson_id_fkey";
+            columns: ["lesson_id"];
+            isOneToOne: false;
+            referencedRelation: "lessons";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      quiz_attempts: {
+        Row: {
+          id: string;
+          student_id: string;
+          quiz_id: string;
+          score_percent: number;
+          passed: boolean;
+          submitted_at: string;
+        };
+        Insert: {
+          id?: string;
+          student_id: string;
+          quiz_id: string;
+          score_percent: number;
+          passed: boolean;
+        };
+        Update: Partial<Database["public"]["Tables"]["quiz_attempts"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "quiz_attempts_quiz_id_fkey";
+            columns: ["quiz_id"];
+            isOneToOne: false;
+            referencedRelation: "quizzes";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
     };
     Views: Record<string, never>;
     Functions: {
@@ -264,6 +416,25 @@ export type Database = {
           p_notes: string | null;
         };
         Returns: undefined;
+      };
+      mark_lesson_complete: {
+        Args: { p_lesson_id: string };
+        Returns: undefined;
+      };
+      get_quiz_questions: {
+        Args: { p_lesson_id: string };
+        Returns: {
+          question_id: string;
+          question_text: string;
+          question_order: number;
+          option_id: string;
+          option_text: string;
+          option_order: number;
+        }[];
+      };
+      submit_quiz_attempt: {
+        Args: { p_quiz_id: string; p_answers: Record<string, string> };
+        Returns: { score_percent: number; passed: boolean }[];
       };
     };
     Enums: {
@@ -282,3 +453,9 @@ export type Enrollment = Database["public"]["Tables"]["enrollments"]["Row"];
 export type PaymentSubmission = Database["public"]["Tables"]["payment_submissions"]["Row"];
 export type JobListing = Database["public"]["Tables"]["job_listings"]["Row"];
 export type Scholarship = Database["public"]["Tables"]["scholarships"]["Row"];
+export type Lesson = Database["public"]["Tables"]["lessons"]["Row"];
+export type Quiz = Database["public"]["Tables"]["quizzes"]["Row"];
+export type QuizQuestion = Database["public"]["Tables"]["quiz_questions"]["Row"];
+export type QuizOption = Database["public"]["Tables"]["quiz_options"]["Row"];
+export type LessonProgress = Database["public"]["Tables"]["lesson_progress"]["Row"];
+export type QuizAttempt = Database["public"]["Tables"]["quiz_attempts"]["Row"];

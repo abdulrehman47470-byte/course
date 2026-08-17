@@ -26,7 +26,8 @@ function MyCoursesPage() {
           {enrollments.map((e) => (
             <Link
               key={e.id}
-              to="/dashboard/courses"
+              to="/dashboard/courses/$courseId"
+              params={{ courseId: e.course_id }}
               className="rounded-xl border border-border bg-card p-5 shadow-card transition-shadow hover:shadow-float"
             >
               <p className="text-[14px] font-bold">{e.course?.title ?? "Untitled course"}</p>
