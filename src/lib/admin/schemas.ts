@@ -32,3 +32,10 @@ export const updateEnrollmentSchema = z.object({
   status: z.enum(["active", "completed", "refunded", "revoked"]),
 });
 export type UpdateEnrollmentValues = z.infer<typeof updateEnrollmentSchema>;
+
+export const reviewPaymentSchema = z.object({
+  submissionId: z.string().uuid(),
+  decision: z.enum(["approved", "rejected"]),
+  notes: z.string().trim().max(500).optional().or(z.literal("")),
+});
+export type ReviewPaymentValues = z.infer<typeof reviewPaymentSchema>;

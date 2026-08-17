@@ -21,3 +21,10 @@ export const getMyEnrollments = createServerFn({ method: "GET" }).handler(
     return (data ?? []) as unknown as EnrollmentWithCourse[];
   },
 );
+
+// Reached only once activation is confirmed (dashboard.tsx layout gates
+// on that), so no separate access check is needed here — just whether a
+// file has actually been configured yet.
+export const getEbookUrl = createServerFn({ method: "GET" }).handler(
+  (): string | null => process.env["EBOOK_DOWNLOAD_URL"] || null,
+);

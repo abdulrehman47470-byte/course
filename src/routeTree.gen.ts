@@ -24,6 +24,7 @@ import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as VerifyEmailRouteImport } from './routes/verify-email'
+import { Route as AuthedDashboardRouteImport } from './routes/_authed/dashboard'
 import { Route as AuthedPaymentRouteImport } from './routes/_authed/payment'
 import { Route as AuthedAdminAdminIndexRouteImport } from './routes/_authed-admin/admin/index'
 import { Route as AuthedAdminAdminAnalyticsRouteImport } from './routes/_authed-admin/admin/analytics'
@@ -31,8 +32,10 @@ import { Route as AuthedAdminAdminCertificatesRouteImport } from './routes/_auth
 import { Route as AuthedAdminAdminCoursesRouteImport } from './routes/_authed-admin/admin/courses'
 import { Route as AuthedAdminAdminEbooksRouteImport } from './routes/_authed-admin/admin/ebooks'
 import { Route as AuthedAdminAdminEnrollmentsRouteImport } from './routes/_authed-admin/admin/enrollments'
+import { Route as AuthedAdminAdminJobListingsRouteImport } from './routes/_authed-admin/admin/job-listings'
 import { Route as AuthedAdminAdminPaymentsRouteImport } from './routes/_authed-admin/admin/payments'
 import { Route as AuthedAdminAdminResumeTemplatesRouteImport } from './routes/_authed-admin/admin/resume-templates'
+import { Route as AuthedAdminAdminScholarshipsRouteImport } from './routes/_authed-admin/admin/scholarships'
 import { Route as AuthedAdminAdminSettingsRouteImport } from './routes/_authed-admin/admin/settings'
 import { Route as AuthedAdminAdminUsersRouteImport } from './routes/_authed-admin/admin/users'
 import { Route as AuthedDashboardIndexRouteImport } from './routes/_authed/dashboard/index'
@@ -40,8 +43,10 @@ import { Route as AuthedDashboardCareerToolkitRouteImport } from './routes/_auth
 import { Route as AuthedDashboardCertificatesRouteImport } from './routes/_authed/dashboard/certificates'
 import { Route as AuthedDashboardCoursesRouteImport } from './routes/_authed/dashboard/courses'
 import { Route as AuthedDashboardEbookRouteImport } from './routes/_authed/dashboard/ebook'
+import { Route as AuthedDashboardJobHuntingRouteImport } from './routes/_authed/dashboard/job-hunting'
 import { Route as AuthedDashboardProfileRouteImport } from './routes/_authed/dashboard/profile'
 import { Route as AuthedDashboardProgressRouteImport } from './routes/_authed/dashboard/progress'
+import { Route as AuthedDashboardScholarshipsRouteImport } from './routes/_authed/dashboard/scholarships'
 import { Route as AuthedDashboardSettingsRouteImport } from './routes/_authed/dashboard/settings'
 import { Route as AuthedAdminAdminStudentsStudentIdRouteImport } from './routes/_authed-admin/admin/students.$studentId'
 
@@ -118,6 +123,11 @@ const VerifyEmailRoute = VerifyEmailRouteImport.update({
   path: '/verify-email',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthedDashboardRoute = AuthedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthedRoute,
+} as any)
 const AuthedPaymentRoute = AuthedPaymentRouteImport.update({
   id: '/payment',
   path: '/payment',
@@ -156,6 +166,12 @@ const AuthedAdminAdminEnrollmentsRoute =
     path: '/admin/enrollments',
     getParentRoute: () => AuthedAdminRoute,
   } as any)
+const AuthedAdminAdminJobListingsRoute =
+  AuthedAdminAdminJobListingsRouteImport.update({
+    id: '/admin/job-listings',
+    path: '/admin/job-listings',
+    getParentRoute: () => AuthedAdminRoute,
+  } as any)
 const AuthedAdminAdminPaymentsRoute =
   AuthedAdminAdminPaymentsRouteImport.update({
     id: '/admin/payments',
@@ -166,6 +182,12 @@ const AuthedAdminAdminResumeTemplatesRoute =
   AuthedAdminAdminResumeTemplatesRouteImport.update({
     id: '/admin/resume-templates',
     path: '/admin/resume-templates',
+    getParentRoute: () => AuthedAdminRoute,
+  } as any)
+const AuthedAdminAdminScholarshipsRoute =
+  AuthedAdminAdminScholarshipsRouteImport.update({
+    id: '/admin/scholarships',
+    path: '/admin/scholarships',
     getParentRoute: () => AuthedAdminRoute,
   } as any)
 const AuthedAdminAdminSettingsRoute =
@@ -180,46 +202,58 @@ const AuthedAdminAdminUsersRoute = AuthedAdminAdminUsersRouteImport.update({
   getParentRoute: () => AuthedAdminRoute,
 } as any)
 const AuthedDashboardIndexRoute = AuthedDashboardIndexRouteImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
-  getParentRoute: () => AuthedRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthedDashboardRoute,
 } as any)
 const AuthedDashboardCareerToolkitRoute =
   AuthedDashboardCareerToolkitRouteImport.update({
-    id: '/dashboard/career-toolkit',
-    path: '/dashboard/career-toolkit',
-    getParentRoute: () => AuthedRoute,
+    id: '/career-toolkit',
+    path: '/career-toolkit',
+    getParentRoute: () => AuthedDashboardRoute,
   } as any)
 const AuthedDashboardCertificatesRoute =
   AuthedDashboardCertificatesRouteImport.update({
-    id: '/dashboard/certificates',
-    path: '/dashboard/certificates',
-    getParentRoute: () => AuthedRoute,
+    id: '/certificates',
+    path: '/certificates',
+    getParentRoute: () => AuthedDashboardRoute,
   } as any)
 const AuthedDashboardCoursesRoute = AuthedDashboardCoursesRouteImport.update({
-  id: '/dashboard/courses',
-  path: '/dashboard/courses',
-  getParentRoute: () => AuthedRoute,
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => AuthedDashboardRoute,
 } as any)
 const AuthedDashboardEbookRoute = AuthedDashboardEbookRouteImport.update({
-  id: '/dashboard/ebook',
-  path: '/dashboard/ebook',
-  getParentRoute: () => AuthedRoute,
+  id: '/ebook',
+  path: '/ebook',
+  getParentRoute: () => AuthedDashboardRoute,
 } as any)
+const AuthedDashboardJobHuntingRoute =
+  AuthedDashboardJobHuntingRouteImport.update({
+    id: '/job-hunting',
+    path: '/job-hunting',
+    getParentRoute: () => AuthedDashboardRoute,
+  } as any)
 const AuthedDashboardProfileRoute = AuthedDashboardProfileRouteImport.update({
-  id: '/dashboard/profile',
-  path: '/dashboard/profile',
-  getParentRoute: () => AuthedRoute,
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthedDashboardRoute,
 } as any)
 const AuthedDashboardProgressRoute = AuthedDashboardProgressRouteImport.update({
-  id: '/dashboard/progress',
-  path: '/dashboard/progress',
-  getParentRoute: () => AuthedRoute,
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => AuthedDashboardRoute,
 } as any)
+const AuthedDashboardScholarshipsRoute =
+  AuthedDashboardScholarshipsRouteImport.update({
+    id: '/scholarships',
+    path: '/scholarships',
+    getParentRoute: () => AuthedDashboardRoute,
+  } as any)
 const AuthedDashboardSettingsRoute = AuthedDashboardSettingsRouteImport.update({
-  id: '/dashboard/settings',
-  path: '/dashboard/settings',
-  getParentRoute: () => AuthedRoute,
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthedDashboardRoute,
 } as any)
 const AuthedAdminAdminStudentsStudentIdRoute =
   AuthedAdminAdminStudentsStudentIdRouteImport.update({
@@ -242,22 +276,27 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/verify-email': typeof VerifyEmailRoute
+  '/dashboard': typeof AuthedDashboardRouteWithChildren
   '/payment': typeof AuthedPaymentRoute
   '/admin/analytics': typeof AuthedAdminAdminAnalyticsRoute
   '/admin/certificates': typeof AuthedAdminAdminCertificatesRoute
   '/admin/courses': typeof AuthedAdminAdminCoursesRoute
   '/admin/ebooks': typeof AuthedAdminAdminEbooksRoute
   '/admin/enrollments': typeof AuthedAdminAdminEnrollmentsRoute
+  '/admin/job-listings': typeof AuthedAdminAdminJobListingsRoute
   '/admin/payments': typeof AuthedAdminAdminPaymentsRoute
   '/admin/resume-templates': typeof AuthedAdminAdminResumeTemplatesRoute
+  '/admin/scholarships': typeof AuthedAdminAdminScholarshipsRoute
   '/admin/settings': typeof AuthedAdminAdminSettingsRoute
   '/admin/users': typeof AuthedAdminAdminUsersRoute
   '/dashboard/career-toolkit': typeof AuthedDashboardCareerToolkitRoute
   '/dashboard/certificates': typeof AuthedDashboardCertificatesRoute
   '/dashboard/courses': typeof AuthedDashboardCoursesRoute
   '/dashboard/ebook': typeof AuthedDashboardEbookRoute
+  '/dashboard/job-hunting': typeof AuthedDashboardJobHuntingRoute
   '/dashboard/profile': typeof AuthedDashboardProfileRoute
   '/dashboard/progress': typeof AuthedDashboardProgressRoute
+  '/dashboard/scholarships': typeof AuthedDashboardScholarshipsRoute
   '/dashboard/settings': typeof AuthedDashboardSettingsRoute
   '/admin/': typeof AuthedAdminAdminIndexRoute
   '/dashboard/': typeof AuthedDashboardIndexRoute
@@ -283,16 +322,20 @@ export interface FileRoutesByTo {
   '/admin/courses': typeof AuthedAdminAdminCoursesRoute
   '/admin/ebooks': typeof AuthedAdminAdminEbooksRoute
   '/admin/enrollments': typeof AuthedAdminAdminEnrollmentsRoute
+  '/admin/job-listings': typeof AuthedAdminAdminJobListingsRoute
   '/admin/payments': typeof AuthedAdminAdminPaymentsRoute
   '/admin/resume-templates': typeof AuthedAdminAdminResumeTemplatesRoute
+  '/admin/scholarships': typeof AuthedAdminAdminScholarshipsRoute
   '/admin/settings': typeof AuthedAdminAdminSettingsRoute
   '/admin/users': typeof AuthedAdminAdminUsersRoute
   '/dashboard/career-toolkit': typeof AuthedDashboardCareerToolkitRoute
   '/dashboard/certificates': typeof AuthedDashboardCertificatesRoute
   '/dashboard/courses': typeof AuthedDashboardCoursesRoute
   '/dashboard/ebook': typeof AuthedDashboardEbookRoute
+  '/dashboard/job-hunting': typeof AuthedDashboardJobHuntingRoute
   '/dashboard/profile': typeof AuthedDashboardProfileRoute
   '/dashboard/progress': typeof AuthedDashboardProgressRoute
+  '/dashboard/scholarships': typeof AuthedDashboardScholarshipsRoute
   '/dashboard/settings': typeof AuthedDashboardSettingsRoute
   '/admin': typeof AuthedAdminAdminIndexRoute
   '/dashboard': typeof AuthedDashboardIndexRoute
@@ -315,22 +358,27 @@ export interface FileRoutesById {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/verify-email': typeof VerifyEmailRoute
+  '/_authed/dashboard': typeof AuthedDashboardRouteWithChildren
   '/_authed/payment': typeof AuthedPaymentRoute
   '/_authed-admin/admin/analytics': typeof AuthedAdminAdminAnalyticsRoute
   '/_authed-admin/admin/certificates': typeof AuthedAdminAdminCertificatesRoute
   '/_authed-admin/admin/courses': typeof AuthedAdminAdminCoursesRoute
   '/_authed-admin/admin/ebooks': typeof AuthedAdminAdminEbooksRoute
   '/_authed-admin/admin/enrollments': typeof AuthedAdminAdminEnrollmentsRoute
+  '/_authed-admin/admin/job-listings': typeof AuthedAdminAdminJobListingsRoute
   '/_authed-admin/admin/payments': typeof AuthedAdminAdminPaymentsRoute
   '/_authed-admin/admin/resume-templates': typeof AuthedAdminAdminResumeTemplatesRoute
+  '/_authed-admin/admin/scholarships': typeof AuthedAdminAdminScholarshipsRoute
   '/_authed-admin/admin/settings': typeof AuthedAdminAdminSettingsRoute
   '/_authed-admin/admin/users': typeof AuthedAdminAdminUsersRoute
   '/_authed/dashboard/career-toolkit': typeof AuthedDashboardCareerToolkitRoute
   '/_authed/dashboard/certificates': typeof AuthedDashboardCertificatesRoute
   '/_authed/dashboard/courses': typeof AuthedDashboardCoursesRoute
   '/_authed/dashboard/ebook': typeof AuthedDashboardEbookRoute
+  '/_authed/dashboard/job-hunting': typeof AuthedDashboardJobHuntingRoute
   '/_authed/dashboard/profile': typeof AuthedDashboardProfileRoute
   '/_authed/dashboard/progress': typeof AuthedDashboardProgressRoute
+  '/_authed/dashboard/scholarships': typeof AuthedDashboardScholarshipsRoute
   '/_authed/dashboard/settings': typeof AuthedDashboardSettingsRoute
   '/_authed-admin/admin/': typeof AuthedAdminAdminIndexRoute
   '/_authed/dashboard/': typeof AuthedDashboardIndexRoute
@@ -352,22 +400,27 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/verify-email'
+    | '/dashboard'
     | '/payment'
     | '/admin/analytics'
     | '/admin/certificates'
     | '/admin/courses'
     | '/admin/ebooks'
     | '/admin/enrollments'
+    | '/admin/job-listings'
     | '/admin/payments'
     | '/admin/resume-templates'
+    | '/admin/scholarships'
     | '/admin/settings'
     | '/admin/users'
     | '/dashboard/career-toolkit'
     | '/dashboard/certificates'
     | '/dashboard/courses'
     | '/dashboard/ebook'
+    | '/dashboard/job-hunting'
     | '/dashboard/profile'
     | '/dashboard/progress'
+    | '/dashboard/scholarships'
     | '/dashboard/settings'
     | '/admin/'
     | '/dashboard/'
@@ -393,16 +446,20 @@ export interface FileRouteTypes {
     | '/admin/courses'
     | '/admin/ebooks'
     | '/admin/enrollments'
+    | '/admin/job-listings'
     | '/admin/payments'
     | '/admin/resume-templates'
+    | '/admin/scholarships'
     | '/admin/settings'
     | '/admin/users'
     | '/dashboard/career-toolkit'
     | '/dashboard/certificates'
     | '/dashboard/courses'
     | '/dashboard/ebook'
+    | '/dashboard/job-hunting'
     | '/dashboard/profile'
     | '/dashboard/progress'
+    | '/dashboard/scholarships'
     | '/dashboard/settings'
     | '/admin'
     | '/dashboard'
@@ -424,22 +481,27 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/verify-email'
+    | '/_authed/dashboard'
     | '/_authed/payment'
     | '/_authed-admin/admin/analytics'
     | '/_authed-admin/admin/certificates'
     | '/_authed-admin/admin/courses'
     | '/_authed-admin/admin/ebooks'
     | '/_authed-admin/admin/enrollments'
+    | '/_authed-admin/admin/job-listings'
     | '/_authed-admin/admin/payments'
     | '/_authed-admin/admin/resume-templates'
+    | '/_authed-admin/admin/scholarships'
     | '/_authed-admin/admin/settings'
     | '/_authed-admin/admin/users'
     | '/_authed/dashboard/career-toolkit'
     | '/_authed/dashboard/certificates'
     | '/_authed/dashboard/courses'
     | '/_authed/dashboard/ebook'
+    | '/_authed/dashboard/job-hunting'
     | '/_authed/dashboard/profile'
     | '/_authed/dashboard/progress'
+    | '/_authed/dashboard/scholarships'
     | '/_authed/dashboard/settings'
     | '/_authed-admin/admin/'
     | '/_authed/dashboard/'
@@ -571,6 +633,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VerifyEmailRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authed/dashboard': {
+      id: '/_authed/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthedDashboardRouteImport
+      parentRoute: typeof AuthedRoute
+    }
     '/_authed/payment': {
       id: '/_authed/payment'
       path: '/payment'
@@ -620,6 +689,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedAdminAdminEnrollmentsRouteImport
       parentRoute: typeof AuthedAdminRoute
     }
+    '/_authed-admin/admin/job-listings': {
+      id: '/_authed-admin/admin/job-listings'
+      path: '/admin/job-listings'
+      fullPath: '/admin/job-listings'
+      preLoaderRoute: typeof AuthedAdminAdminJobListingsRouteImport
+      parentRoute: typeof AuthedAdminRoute
+    }
     '/_authed-admin/admin/payments': {
       id: '/_authed-admin/admin/payments'
       path: '/admin/payments'
@@ -632,6 +708,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/resume-templates'
       fullPath: '/admin/resume-templates'
       preLoaderRoute: typeof AuthedAdminAdminResumeTemplatesRouteImport
+      parentRoute: typeof AuthedAdminRoute
+    }
+    '/_authed-admin/admin/scholarships': {
+      id: '/_authed-admin/admin/scholarships'
+      path: '/admin/scholarships'
+      fullPath: '/admin/scholarships'
+      preLoaderRoute: typeof AuthedAdminAdminScholarshipsRouteImport
       parentRoute: typeof AuthedAdminRoute
     }
     '/_authed-admin/admin/settings': {
@@ -650,59 +733,73 @@ declare module '@tanstack/react-router' {
     }
     '/_authed/dashboard/': {
       id: '/_authed/dashboard/'
-      path: '/dashboard'
+      path: '/'
       fullPath: '/dashboard/'
       preLoaderRoute: typeof AuthedDashboardIndexRouteImport
-      parentRoute: typeof AuthedRoute
+      parentRoute: typeof AuthedDashboardRoute
     }
     '/_authed/dashboard/career-toolkit': {
       id: '/_authed/dashboard/career-toolkit'
-      path: '/dashboard/career-toolkit'
+      path: '/career-toolkit'
       fullPath: '/dashboard/career-toolkit'
       preLoaderRoute: typeof AuthedDashboardCareerToolkitRouteImport
-      parentRoute: typeof AuthedRoute
+      parentRoute: typeof AuthedDashboardRoute
     }
     '/_authed/dashboard/certificates': {
       id: '/_authed/dashboard/certificates'
-      path: '/dashboard/certificates'
+      path: '/certificates'
       fullPath: '/dashboard/certificates'
       preLoaderRoute: typeof AuthedDashboardCertificatesRouteImport
-      parentRoute: typeof AuthedRoute
+      parentRoute: typeof AuthedDashboardRoute
     }
     '/_authed/dashboard/courses': {
       id: '/_authed/dashboard/courses'
-      path: '/dashboard/courses'
+      path: '/courses'
       fullPath: '/dashboard/courses'
       preLoaderRoute: typeof AuthedDashboardCoursesRouteImport
-      parentRoute: typeof AuthedRoute
+      parentRoute: typeof AuthedDashboardRoute
     }
     '/_authed/dashboard/ebook': {
       id: '/_authed/dashboard/ebook'
-      path: '/dashboard/ebook'
+      path: '/ebook'
       fullPath: '/dashboard/ebook'
       preLoaderRoute: typeof AuthedDashboardEbookRouteImport
-      parentRoute: typeof AuthedRoute
+      parentRoute: typeof AuthedDashboardRoute
+    }
+    '/_authed/dashboard/job-hunting': {
+      id: '/_authed/dashboard/job-hunting'
+      path: '/job-hunting'
+      fullPath: '/dashboard/job-hunting'
+      preLoaderRoute: typeof AuthedDashboardJobHuntingRouteImport
+      parentRoute: typeof AuthedDashboardRoute
     }
     '/_authed/dashboard/profile': {
       id: '/_authed/dashboard/profile'
-      path: '/dashboard/profile'
+      path: '/profile'
       fullPath: '/dashboard/profile'
       preLoaderRoute: typeof AuthedDashboardProfileRouteImport
-      parentRoute: typeof AuthedRoute
+      parentRoute: typeof AuthedDashboardRoute
     }
     '/_authed/dashboard/progress': {
       id: '/_authed/dashboard/progress'
-      path: '/dashboard/progress'
+      path: '/progress'
       fullPath: '/dashboard/progress'
       preLoaderRoute: typeof AuthedDashboardProgressRouteImport
-      parentRoute: typeof AuthedRoute
+      parentRoute: typeof AuthedDashboardRoute
+    }
+    '/_authed/dashboard/scholarships': {
+      id: '/_authed/dashboard/scholarships'
+      path: '/scholarships'
+      fullPath: '/dashboard/scholarships'
+      preLoaderRoute: typeof AuthedDashboardScholarshipsRouteImport
+      parentRoute: typeof AuthedDashboardRoute
     }
     '/_authed/dashboard/settings': {
       id: '/_authed/dashboard/settings'
-      path: '/dashboard/settings'
+      path: '/settings'
       fullPath: '/dashboard/settings'
       preLoaderRoute: typeof AuthedDashboardSettingsRouteImport
-      parentRoute: typeof AuthedRoute
+      parentRoute: typeof AuthedDashboardRoute
     }
     '/_authed-admin/admin/students/$studentId': {
       id: '/_authed-admin/admin/students/$studentId'
@@ -714,28 +811,44 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AuthedRouteChildren {
-  AuthedPaymentRoute: typeof AuthedPaymentRoute
+interface AuthedDashboardRouteChildren {
   AuthedDashboardCareerToolkitRoute: typeof AuthedDashboardCareerToolkitRoute
   AuthedDashboardCertificatesRoute: typeof AuthedDashboardCertificatesRoute
   AuthedDashboardCoursesRoute: typeof AuthedDashboardCoursesRoute
   AuthedDashboardEbookRoute: typeof AuthedDashboardEbookRoute
+  AuthedDashboardJobHuntingRoute: typeof AuthedDashboardJobHuntingRoute
   AuthedDashboardProfileRoute: typeof AuthedDashboardProfileRoute
   AuthedDashboardProgressRoute: typeof AuthedDashboardProgressRoute
+  AuthedDashboardScholarshipsRoute: typeof AuthedDashboardScholarshipsRoute
   AuthedDashboardSettingsRoute: typeof AuthedDashboardSettingsRoute
   AuthedDashboardIndexRoute: typeof AuthedDashboardIndexRoute
 }
 
-const AuthedRouteChildren: AuthedRouteChildren = {
-  AuthedPaymentRoute: AuthedPaymentRoute,
+const AuthedDashboardRouteChildren: AuthedDashboardRouteChildren = {
   AuthedDashboardCareerToolkitRoute: AuthedDashboardCareerToolkitRoute,
   AuthedDashboardCertificatesRoute: AuthedDashboardCertificatesRoute,
   AuthedDashboardCoursesRoute: AuthedDashboardCoursesRoute,
   AuthedDashboardEbookRoute: AuthedDashboardEbookRoute,
+  AuthedDashboardJobHuntingRoute: AuthedDashboardJobHuntingRoute,
   AuthedDashboardProfileRoute: AuthedDashboardProfileRoute,
   AuthedDashboardProgressRoute: AuthedDashboardProgressRoute,
+  AuthedDashboardScholarshipsRoute: AuthedDashboardScholarshipsRoute,
   AuthedDashboardSettingsRoute: AuthedDashboardSettingsRoute,
   AuthedDashboardIndexRoute: AuthedDashboardIndexRoute,
+}
+
+const AuthedDashboardRouteWithChildren = AuthedDashboardRoute._addFileChildren(
+  AuthedDashboardRouteChildren,
+)
+
+interface AuthedRouteChildren {
+  AuthedDashboardRoute: typeof AuthedDashboardRouteWithChildren
+  AuthedPaymentRoute: typeof AuthedPaymentRoute
+}
+
+const AuthedRouteChildren: AuthedRouteChildren = {
+  AuthedDashboardRoute: AuthedDashboardRouteWithChildren,
+  AuthedPaymentRoute: AuthedPaymentRoute,
 }
 
 const AuthedRouteWithChildren =
@@ -747,8 +860,10 @@ interface AuthedAdminRouteChildren {
   AuthedAdminAdminCoursesRoute: typeof AuthedAdminAdminCoursesRoute
   AuthedAdminAdminEbooksRoute: typeof AuthedAdminAdminEbooksRoute
   AuthedAdminAdminEnrollmentsRoute: typeof AuthedAdminAdminEnrollmentsRoute
+  AuthedAdminAdminJobListingsRoute: typeof AuthedAdminAdminJobListingsRoute
   AuthedAdminAdminPaymentsRoute: typeof AuthedAdminAdminPaymentsRoute
   AuthedAdminAdminResumeTemplatesRoute: typeof AuthedAdminAdminResumeTemplatesRoute
+  AuthedAdminAdminScholarshipsRoute: typeof AuthedAdminAdminScholarshipsRoute
   AuthedAdminAdminSettingsRoute: typeof AuthedAdminAdminSettingsRoute
   AuthedAdminAdminUsersRoute: typeof AuthedAdminAdminUsersRoute
   AuthedAdminAdminIndexRoute: typeof AuthedAdminAdminIndexRoute
@@ -761,8 +876,10 @@ const AuthedAdminRouteChildren: AuthedAdminRouteChildren = {
   AuthedAdminAdminCoursesRoute: AuthedAdminAdminCoursesRoute,
   AuthedAdminAdminEbooksRoute: AuthedAdminAdminEbooksRoute,
   AuthedAdminAdminEnrollmentsRoute: AuthedAdminAdminEnrollmentsRoute,
+  AuthedAdminAdminJobListingsRoute: AuthedAdminAdminJobListingsRoute,
   AuthedAdminAdminPaymentsRoute: AuthedAdminAdminPaymentsRoute,
   AuthedAdminAdminResumeTemplatesRoute: AuthedAdminAdminResumeTemplatesRoute,
+  AuthedAdminAdminScholarshipsRoute: AuthedAdminAdminScholarshipsRoute,
   AuthedAdminAdminSettingsRoute: AuthedAdminAdminSettingsRoute,
   AuthedAdminAdminUsersRoute: AuthedAdminAdminUsersRoute,
   AuthedAdminAdminIndexRoute: AuthedAdminAdminIndexRoute,

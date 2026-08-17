@@ -1,14 +1,16 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
-import type { Course, Enrollment, Profile } from "@/lib/supabase/types";
+import type { Course, Enrollment, PaymentSubmission, Profile } from "@/lib/supabase/types";
 import { z } from "zod";
 import {
   createCourseSchema,
   enrollStudentSchema,
+  reviewPaymentSchema,
   updateEnrollmentSchema,
   updateUserRoleSchema,
   type CreateCourseValues,
   type EnrollStudentValues,
+  type ReviewPaymentValues,
   type UpdateEnrollmentValues,
   type UpdateUserRoleValues,
 } from "./schemas";
@@ -177,6 +179,40 @@ export const updateEnrollmentStatus = createServerFn({ method: "POST" })
       .from("enrollments")
       .update({ status: data.status })
       .eq("id", data.enrollmentId);
+    if (error) throw new Error(error.message);
+    return { success: true as const };
+  });
+
+export type PaymentSubmissionAdminRow = PaymentSubmission & {
+  student: { display_name: string; email: string | null } | null;
+};
+
+export const listPaymentSubmissions = createServerFn({ method: "GET" }).handler(
+  async (): Promise<PaymentSubmissionAdminRow[]> => {
+    const supabase = getSupabaseServerClient();
+    const { data } = await supabase
+      .from("payment_submissions")
+      .select("*, student:profiles!payment_submissions_student_id_fkey(display_name, email)")
+      .order("submitted_at", { ascending: false });
+    return (data ?? []) as unknown as PaymentSubmissionAdminRow[];
+  },
+);
+
+/**
+ * Approving activates the student's account and auto-enrolls them in every
+ * published course — all inside the admin_review_payment() Postgres
+ * function (supabase/migrations/0007_activation_jobs_scholarships.sql) so
+ * it happens atomically rather than as separate round trips from here.
+ */
+export const reviewPayment = createServerFn({ method: "POST" })
+  .validator((input: unknown): ReviewPaymentValues => reviewPaymentSchema.parse(input))
+  .handler(async ({ data }) => {
+    const supabase = getSupabaseServerClient();
+    const { error } = await supabase.rpc("admin_review_payment", {
+      p_submission_id: data.submissionId,
+      p_decision: data.decision,
+      p_notes: data.notes || null,
+    });
     if (error) throw new Error(error.message);
     return { success: true as const };
   });

@@ -25,6 +25,7 @@ export type Database = {
           bio: string | null;
           phone: string | null;
           country: string | null;
+          activated_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -38,6 +39,7 @@ export type Database = {
           bio?: string | null;
           phone?: string | null;
           country?: string | null;
+          activated_at?: string | null;
         };
         Update: Partial<Database["public"]["Tables"]["profiles"]["Insert"]>;
         Relationships: [];
@@ -190,9 +192,80 @@ export type Database = {
           },
         ];
       };
+      job_listings: {
+        Row: {
+          id: string;
+          title: string;
+          company: string;
+          location: string | null;
+          remote_type: string;
+          skills: string[];
+          apply_url: string | null;
+          source: string | null;
+          application_deadline: string | null;
+          posted_at: string;
+          created_by: string | null;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          company: string;
+          location?: string | null;
+          remote_type?: string;
+          skills?: string[];
+          apply_url?: string | null;
+          source?: string | null;
+          application_deadline?: string | null;
+          created_by?: string | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["job_listings"]["Insert"]>;
+        Relationships: [];
+      };
+      scholarships: {
+        Row: {
+          id: string;
+          name: string;
+          organization: string;
+          country: string | null;
+          degree_level: string | null;
+          eligibility: string | null;
+          funding_details: string | null;
+          application_requirements: string | null;
+          application_url: string | null;
+          opens_at: string | null;
+          closes_at: string | null;
+          created_at: string;
+          created_by: string | null;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          organization: string;
+          country?: string | null;
+          degree_level?: string | null;
+          eligibility?: string | null;
+          funding_details?: string | null;
+          application_requirements?: string | null;
+          application_url?: string | null;
+          opens_at?: string | null;
+          closes_at?: string | null;
+          created_by?: string | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["scholarships"]["Insert"]>;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      admin_review_payment: {
+        Args: {
+          p_submission_id: string;
+          p_decision: PaymentSubmissionStatus;
+          p_notes: string | null;
+        };
+        Returns: undefined;
+      };
+    };
     Enums: {
       user_role: UserRole;
       course_status: CourseStatus;
@@ -207,3 +280,5 @@ export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 export type Course = Database["public"]["Tables"]["courses"]["Row"];
 export type Enrollment = Database["public"]["Tables"]["enrollments"]["Row"];
 export type PaymentSubmission = Database["public"]["Tables"]["payment_submissions"]["Row"];
+export type JobListing = Database["public"]["Tables"]["job_listings"]["Row"];
+export type Scholarship = Database["public"]["Tables"]["scholarships"]["Row"];
