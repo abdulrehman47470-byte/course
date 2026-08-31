@@ -18,6 +18,7 @@ import { Route as CareerServicesRouteImport } from './routes/career-services'
 import { Route as CertificationsRouteImport } from './routes/certifications'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as EligibilityRouteImport } from './routes/eligibility'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ResourcesRouteImport } from './routes/resources'
@@ -93,6 +94,11 @@ const ContactRoute = ContactRouteImport.update({
 const CoursesRoute = CoursesRouteImport.update({
   id: '/courses',
   path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EligibilityRoute = EligibilityRouteImport.update({
+  id: '/eligibility',
+  path: '/eligibility',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
@@ -284,6 +290,7 @@ export interface FileRoutesByFullPath {
   '/certifications': typeof CertificationsRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
+  '/eligibility': typeof EligibilityRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/resources': typeof ResourcesRoute
@@ -326,6 +333,7 @@ export interface FileRoutesByTo {
   '/certifications': typeof CertificationsRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
+  '/eligibility': typeof EligibilityRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/resources': typeof ResourcesRoute
@@ -370,6 +378,7 @@ export interface FileRoutesById {
   '/certifications': typeof CertificationsRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
+  '/eligibility': typeof EligibilityRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/resources': typeof ResourcesRoute
@@ -414,6 +423,7 @@ export interface FileRouteTypes {
     | '/certifications'
     | '/contact'
     | '/courses'
+    | '/eligibility'
     | '/forgot-password'
     | '/reset-password'
     | '/resources'
@@ -456,6 +466,7 @@ export interface FileRouteTypes {
     | '/certifications'
     | '/contact'
     | '/courses'
+    | '/eligibility'
     | '/forgot-password'
     | '/reset-password'
     | '/resources'
@@ -499,6 +510,7 @@ export interface FileRouteTypes {
     | '/certifications'
     | '/contact'
     | '/courses'
+    | '/eligibility'
     | '/forgot-password'
     | '/reset-password'
     | '/resources'
@@ -544,6 +556,7 @@ export interface RootRouteChildren {
   CertificationsRoute: typeof CertificationsRoute
   ContactRoute: typeof ContactRoute
   CoursesRoute: typeof CoursesRoute
+  EligibilityRoute: typeof EligibilityRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   ResourcesRoute: typeof ResourcesRoute
@@ -615,6 +628,13 @@ declare module '@tanstack/react-router' {
       path: '/courses'
       fullPath: '/courses'
       preLoaderRoute: typeof CoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/eligibility': {
+      id: '/eligibility'
+      path: '/eligibility'
+      fullPath: '/eligibility'
+      preLoaderRoute: typeof EligibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forgot-password': {
@@ -969,6 +989,7 @@ const rootRouteChildren: RootRouteChildren = {
   CertificationsRoute: CertificationsRoute,
   ContactRoute: ContactRoute,
   CoursesRoute: CoursesRoute,
+  EligibilityRoute: EligibilityRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   ResourcesRoute: ResourcesRoute,

@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  redirect,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -13,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
 import { getSessionUser, type SessionUser } from "@/lib/auth/server-fns";
+import { checkEligibilityGate } from "@/lib/eligibility/server-fns";
 
 function NotFoundComponent() {
   return (
@@ -78,7 +80,18 @@ export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
   sessionUser: SessionUser | null;
 }>()({
-  beforeLoad: async () => ({ sessionUser: await getSessionUser() }),
+  beforeLoad: async ({ location }) => {
+    // Dormant unless ELIGIBILITY_GATE_ENABLED=true — see
+    // src/lib/eligibility/server-fns.ts. When off, checkEligibilityGate()
+    // always returns shouldRedirect: false, so this is a no-op.
+    if (location.pathname !== "/eligibility") {
+      const gate = await checkEligibilityGate();
+      if (gate.shouldRedirect) {
+        throw redirect({ to: "/eligibility" });
+      }
+    }
+    return { sessionUser: await getSessionUser() };
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
