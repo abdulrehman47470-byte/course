@@ -4,15 +4,14 @@ import { getCookie, setCookie } from "@tanstack/react-start/server";
 const ELIGIBILITY_SEEN_COOKIE = "mma_seen_eligibility";
 
 /**
- * Dormant by default: ELIGIBILITY_GATE_ENABLED is unset in every
- * environment right now, so this always returns shouldRedirect: false and
- * __root.tsx's beforeLoad is a no-op for this feature — zero behavior
- * change to the live site. Set the env var to "true" (Vercel + redeploy)
- * to turn on "redirect first-time visitors to /eligibility this session."
+ * On by default — every first-time visitor each browser session gets
+ * redirected to /eligibility before anything else. Set
+ * ELIGIBILITY_GATE_ENABLED="false" (Vercel + redeploy) to switch it back
+ * off without a code change, if that's ever needed.
  */
 export const checkEligibilityGate = createServerFn({ method: "GET" }).handler(
   (): { shouldRedirect: boolean } => {
-    if (process.env["ELIGIBILITY_GATE_ENABLED"] !== "true") return { shouldRedirect: false };
+    if (process.env["ELIGIBILITY_GATE_ENABLED"] === "false") return { shouldRedirect: false };
     return { shouldRedirect: getCookie(ELIGIBILITY_SEEN_COOKIE) !== "1" };
   },
 );
