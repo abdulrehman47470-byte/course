@@ -99,6 +99,14 @@ export const Route = createFileRoute("/eligibility")({
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
     ],
+    // Preloaded so the browser fetches these in the background while the
+    // rest of the page loads — by the time anyone clicks "Reviews" the
+    // images are already cached and render instantly, no click-then-wait.
+    links: feedbackScreenshots.map((shot) => ({
+      rel: "preload",
+      as: "image",
+      href: shot.src,
+    })),
   }),
   component: EligibilityPage,
 });
@@ -458,14 +466,18 @@ function ExploreSection() {
 
             {feedbackScreenshots.length > 0 ? (
               <div className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3">
-                {feedbackScreenshots.map((shot, i) => (
+                {feedbackScreenshots.map((shot) => (
+                  // Preloaded via the route's <link rel="preload"> (see
+                  // head() above), so these are already in the browser
+                  // cache by the time this tab opens — eager here just
+                  // means "paint immediately," not "fetch now."
                   <img
                     key={shot.src}
                     src={shot.src}
                     alt={shot.alt}
-                    loading={i < 3 ? "eager" : "lazy"}
+                    loading="eager"
                     decoding="async"
-                    fetchPriority={i < 3 ? "high" : "auto"}
+                    fetchPriority="high"
                     className="block w-full break-inside-avoid rounded-xl border border-border"
                   />
                 ))}
