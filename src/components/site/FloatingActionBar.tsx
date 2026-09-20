@@ -1,5 +1,6 @@
 import { ClipboardCheck, MessageCircle } from "lucide-react";
 import { Link, useRouter } from "@tanstack/react-router";
+import { toast } from "sonner";
 
 export function FloatingActionBar() {
   const router = useRouter();
@@ -17,6 +18,17 @@ export function FloatingActionBar() {
     });
   }
 
+  // WhatsApp never opens directly from this button — it only opens after
+  // the enrollment form below is submitted (see RegistrationForm in
+  // src/routes/eligibility.tsx). Clicking it here just explains that and
+  // takes the visitor to the form.
+  function onWhatsAppClick(e: React.MouseEvent) {
+    toast.error("Please fill out the enrollment form first", {
+      description: "Once you submit it, you'll be redirected straight to WhatsApp.",
+    });
+    goToForm(e);
+  }
+
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 flex justify-center px-4 sm:bottom-6">
       <div className="flex items-center gap-2.5 rounded-full border border-forest-foreground/10 bg-forest-deep/95 p-2 shadow-float backdrop-blur">
@@ -29,14 +41,10 @@ export function FloatingActionBar() {
           <ClipboardCheck className="size-[18px] shrink-0" />
           <span>Enrollment Form</span>
         </Link>
-        {/* WhatsApp opens only after the enrollment form below is submitted
-            (see RegistrationForm in src/routes/eligibility.tsx) — this button
-            takes the user there first, same as the Enrollment Form button,
-            every single click. */}
         <Link
           to="/eligibility"
           hash="registration-form"
-          onClick={goToForm}
+          onClick={onWhatsAppClick}
           className="flex items-center gap-2 rounded-full bg-emerald-bright px-5 py-3.5 text-[14.5px] font-bold text-forest-deep transition-opacity hover:opacity-90 sm:px-6"
         >
           <MessageCircle className="size-[18px] shrink-0" />
