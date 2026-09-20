@@ -86,9 +86,32 @@ const mentor = {
   linkedin: "https://www.linkedin.com/in/abdul-rehman147",
 };
 
+const siteUrl = "https://www.careerbooster.cloud";
+const pageUrl = `${siteUrl}/eligibility`;
+const ogImage = `${siteUrl}/careerbooster-logo.png`;
+
 const title = "Eligibility — CareerBooster";
 const description =
   "A clean, practical overview of the AI, data, freelancing, and career-development skills CareerBooster teaches.";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  name: "CareerBooster Program",
+  description,
+  provider: {
+    "@type": "Organization",
+    name: "CareerBooster",
+    sameAs: siteUrl,
+  },
+  offers: {
+    "@type": "Offer",
+    price: "3000",
+    priceCurrency: "PKR",
+    availability: "https://schema.org/InStock",
+    url: pageUrl,
+  },
+};
 
 export const Route = createFileRoute("/eligibility")({
   head: () => ({
@@ -98,15 +121,29 @@ export const Route = createFileRoute("/eligibility")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: pageUrl },
+      { property: "og:image", content: ogImage },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: ogImage },
     ],
-    // Preloaded so the browser fetches these in the background while the
-    // rest of the page loads — by the time anyone clicks "Reviews" the
-    // images are already cached and render instantly, no click-then-wait.
-    links: feedbackScreenshots.map((shot) => ({
-      rel: "preload",
-      as: "image",
-      href: shot.src,
-    })),
+    links: [
+      { rel: "canonical", href: pageUrl },
+      // Preloaded so the browser fetches these in the background while the
+      // rest of the page loads — by the time anyone clicks "Reviews" the
+      // images are already cached and render instantly, no click-then-wait.
+      ...feedbackScreenshots.map((shot) => ({
+        rel: "preload",
+        as: "image",
+        href: shot.src,
+      })),
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(structuredData),
+      },
+    ],
   }),
   component: EligibilityPage,
 });
