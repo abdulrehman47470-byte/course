@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
+import { FloatingActionBar } from "@/components/site/FloatingActionBar";
 import { getSessionUser, type SessionUser } from "@/lib/auth/server-fns";
 import { checkEligibilityGate } from "@/lib/eligibility/server-fns";
 
@@ -81,9 +82,8 @@ export const Route = createRootRouteWithContext<{
   sessionUser: SessionUser | null;
 }>()({
   beforeLoad: async ({ location }) => {
-    // Dormant unless ELIGIBILITY_GATE_ENABLED=true — see
-    // src/lib/eligibility/server-fns.ts. When off, checkEligibilityGate()
-    // always returns shouldRedirect: false, so this is a no-op.
+    // On by default — every route but /eligibility redirects there, every
+    // visit. See src/lib/eligibility/server-fns.ts to switch this off.
     if (location.pathname !== "/eligibility") {
       const gate = await checkEligibilityGate();
       if (gate.shouldRedirect) {
@@ -100,13 +100,13 @@ export const Route = createRootRouteWithContext<{
       {
         name: "description",
         content:
-          "Industry-focused courses with CPD & IBEI recognized certifications to help you upskill, get hired, and grow faster.",
+          "Industry-focused courses with internationally recognized certifications to help you upskill, get hired, and grow faster.",
       },
       { name: "author", content: "CareerBooster" },
       { property: "og:title", content: "CareerBooster" },
       {
         property: "og:description",
-        content: "Learn, certify, advance with CPD & IBEI recognized online courses.",
+        content: "Learn, certify, advance with internationally recognized online courses.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -153,6 +153,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <FloatingActionBar />
       <Toaster />
     </QueryClientProvider>
   );

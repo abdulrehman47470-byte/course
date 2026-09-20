@@ -29,7 +29,11 @@ const steps = [
     title: "Learn & Complete",
     text: "Learn at your pace and complete all requirements.",
   },
-  { icon: Award, title: "Earn CPD & IBEI", text: "Get internationally recognized certification." },
+  {
+    icon: Award,
+    title: "Get Internationally Recognized",
+    text: "Get internationally recognized certification.",
+  },
   { icon: Briefcase, title: "Get Hired", text: "Apply to jobs and get hired with confidence." },
 ];
 
@@ -78,7 +82,7 @@ const platform = [
   {
     icon: Award,
     title: "Earn Certificates",
-    text: "Get CPD & IBEI recognized certificates globally.",
+    text: "Get internationally recognized certificates globally.",
     img: "/images/1638636241638-aef5120c5153-480x280.jpg",
   },
   {
@@ -114,7 +118,12 @@ export function Platform() {
               key={p.title}
               className="overflow-hidden rounded-xl border border-border bg-card shadow-card transition-shadow hover:shadow-float"
             >
-              <img src={p.img} alt={p.title} loading="lazy" className="h-[130px] w-full object-cover" />
+              <img
+                src={p.img}
+                alt={p.title}
+                loading="lazy"
+                className="h-[130px] w-full object-cover"
+              />
               <div className="p-4">
                 <h3 className="text-[14px] font-bold">{p.title}</h3>
                 <p className="mt-2 text-[12px] leading-relaxed text-muted-foreground">{p.text}</p>
@@ -139,7 +148,7 @@ export function Certifications() {
   return (
     <section className="bg-background pb-16">
       <div className="mx-auto max-w-[1240px] px-5">
-        <div className="grid gap-9 rounded-xl bg-forest-deep p-9 text-forest-foreground lg:grid-cols-[1.1fr_auto_0.8fr_0.8fr_auto_1.2fr] lg:items-center">
+        <div className="grid gap-9 rounded-xl bg-forest-deep p-9 text-forest-foreground lg:grid-cols-[1.1fr_auto_1fr_auto_1.2fr] lg:items-center">
           <div>
             <h2 className="text-xl font-bold leading-snug">
               Globally Recognized
@@ -147,24 +156,12 @@ export function Certifications() {
               Certifications
             </h2>
             <p className="mt-3.5 text-[13px] leading-relaxed text-forest-foreground/70">
-              Get certified by CPD & IBEI and boost your career worldwide.
+              Get internationally recognized and boost your career worldwide.
             </p>
           </div>
           <div className="hidden h-16 w-px bg-forest-foreground/20 lg:block" />
           <div className="text-center">
-            <p className="text-3xl font-bold">CPD</p>
-            <p className="mt-1.5 text-[11px] text-forest-foreground/60">
-              The CPD Certification Service
-            </p>
-            <p className="mt-2 text-[10px] font-bold tracking-wider text-emerald-bright">
-              RECOGNIZED
-            </p>
-          </div>
-          <div className="text-center">
-            <p className="text-3xl font-bold">IBEI</p>
-            <p className="mt-1.5 text-[11px] text-forest-foreground/60">
-              International Board of Education & Innovation
-            </p>
+            <p className="text-xl font-bold">Internationally Recognized</p>
             <p className="mt-2 text-[10px] font-bold tracking-wider text-emerald-bright">
               RECOGNIZED
             </p>

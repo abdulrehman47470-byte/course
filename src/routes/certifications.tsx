@@ -15,7 +15,7 @@ import { CtaFooter } from "@/components/site/CtaFooter";
 
 const title = "Certifications — CareerBooster";
 const description =
-  "Learn how CPD & IBEI recognized certification works, how employers verify it, and why it's built into every course.";
+  "Learn how internationally recognized certification works, how employers verify it, and why it's built into every course.";
 
 export const Route = createFileRoute("/certifications")({
   head: () => ({
@@ -47,12 +47,12 @@ const process = [
   {
     icon: BadgeCheck,
     title: "Get Verified",
-    text: "Your work is reviewed against CPD & IBEI professional development standards before issuing.",
+    text: "Your work is reviewed against internationally recognized professional development standards before issuing.",
   },
   {
     icon: ShieldCheck,
     title: "Receive Your Certificate",
-    text: "A CPD & IBEI recognized certificate is issued with a unique, lifetime-verifiable ID.",
+    text: "An internationally recognized certificate is issued with a unique, lifetime-verifiable ID.",
   },
   {
     icon: Globe2,
@@ -63,15 +63,15 @@ const process = [
 
 const certContents = [
   "Your full name and the course or track completed",
-  "Official completion date and total CPD hours earned",
+  "Official completion date and total hours earned",
   "A unique, lifetime-verifiable certificate ID",
-  "CPD & IBEI recognition marks and issuing signatures",
+  "Internationally Recognized marks and issuing signatures",
 ];
 
 const certFaqs = [
   {
     q: "Are the certificates internationally recognized?",
-    a: "Yes. Our courses are structured to meet internationally recognized continuing professional development (CPD) standards, and certification is backed by CPD & IBEI recognition.",
+    a: "Yes. Our courses are structured to meet internationally recognized professional development standards, and every certificate is Internationally Recognized.",
   },
   {
     q: "How does certificate verification work?",
@@ -96,27 +96,15 @@ function CertificationsPage() {
               <span className="text-emerald-bright">International Standards</span>
             </>
           }
-          subtitle="Every learning path ends in a CPD & IBEI recognized certificate — verifiable, lifetime-valid, and built to be trusted by employers worldwide."
+          subtitle="Every learning path ends in an internationally recognized certificate — verifiable, lifetime-valid, and built to be trusted by employers worldwide."
           image="/images/1523240795612-9a054b0db644-1600x500.jpg"
         />
 
         <section className="bg-surface py-16">
           <div className="mx-auto max-w-[1240px] px-5">
-            <div className="grid gap-9 rounded-xl bg-forest-deep p-9 text-forest-foreground lg:grid-cols-[0.8fr_0.8fr_auto_1.2fr] lg:items-center">
+            <div className="grid gap-9 rounded-xl bg-forest-deep p-9 text-forest-foreground lg:grid-cols-[1fr_auto_1.2fr] lg:items-center">
               <div className="text-center">
-                <p className="text-3xl font-bold">CPD</p>
-                <p className="mt-1.5 text-[11px] text-forest-foreground/60">
-                  The CPD Certification Service
-                </p>
-                <p className="mt-2 text-[10px] font-bold tracking-wider text-emerald-bright">
-                  RECOGNIZED
-                </p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl font-bold">IBEI</p>
-                <p className="mt-1.5 text-[11px] text-forest-foreground/60">
-                  International Board of Education & Innovation
-                </p>
+                <p className="text-3xl font-bold">Internationally Recognized</p>
                 <p className="mt-2 text-[10px] font-bold tracking-wider text-emerald-bright">
                   RECOGNIZED
                 </p>
@@ -163,12 +151,9 @@ function CertificationsPage() {
 
                   <div className="mt-7 flex items-center justify-center gap-10">
                     <div className="text-center">
-                      <p className="text-lg font-bold text-foreground">CPD</p>
-                      <p className="text-[9px] font-bold tracking-wider text-primary">RECOGNIZED</p>
-                    </div>
-                    <div className="h-10 w-px bg-border" />
-                    <div className="text-center">
-                      <p className="text-lg font-bold text-foreground">IBEI</p>
+                      <p className="text-lg font-bold text-foreground">
+                        Internationally Recognized
+                      </p>
                       <p className="text-[9px] font-bold tracking-wider text-primary">RECOGNIZED</p>
                     </div>
                   </div>

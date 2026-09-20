@@ -25,7 +25,7 @@ export const Route = createFileRoute("/about")({
 const stats = [
   { icon: BookOpen, value: "500+", label: "Expert Courses" },
   { icon: Users, value: "50K+", label: "Happy Learners" },
-  { icon: BadgeCheck, value: "CPD & IBEI", label: "Recognized Certificates" },
+  { icon: BadgeCheck, value: "Internationally Recognized", label: "Recognized Certificates" },
   { icon: Briefcase, value: "1000+", label: "Hiring Partners" },
 ];
 

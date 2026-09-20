@@ -26,8 +26,7 @@ const columns = [
   {
     title: "Certifications",
     links: [
-      { label: "CPD Certification", to: "/certifications" as const },
-      { label: "IBEI Certification", to: "/certifications" as const },
+      { label: "Internationally Recognized Certification", to: "/certifications" as const },
       { label: "Verification", to: "/certifications" as const },
     ],
   },

@@ -33,7 +33,7 @@ import courseCyber from "@/assets/course-cyber.jpg";
 
 const title = "Courses — CareerBooster";
 const description =
-  "Browse industry-designed courses in AI, data, bioscience, web development, marketing, and career growth — with CPD & IBEI recognized certification.";
+  "Browse industry-designed courses in AI, data, bioscience, web development, marketing, and career growth — with internationally recognized certification.";
 
 export const Route = createFileRoute("/courses")({
   validateSearch: (search: Record<string, unknown>): { q?: string } => {
@@ -403,7 +403,7 @@ const courses: Course[] = [
 const included = [
   { icon: MonitorPlay, text: "HD video lectures with lifetime access" },
   { icon: Code2, text: "Hands-on, portfolio-ready projects" },
-  { icon: Award, text: "CPD & IBEI recognized certification" },
+  { icon: Award, text: "Internationally recognized certification" },
   { icon: FileText, text: "AI CV Builder for every graduate" },
   { icon: Briefcase, text: "Career & job portal access" },
 ];

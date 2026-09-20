@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Award,
@@ -8,31 +8,42 @@ import {
   Calendar,
   CheckCircle2,
   Clock,
-  Facebook,
+  Compass,
   GraduationCap,
   ImageIcon,
+  LineChart,
   Linkedin,
+  ListChecks,
   Loader2,
-  MessageCircle,
+  Megaphone,
+  PenTool,
+  PlayCircle,
   RefreshCw,
   ShieldCheck,
   Sparkles,
-  Users,
+  TrendingUp,
+  Wrench,
 } from "lucide-react";
-import { markEligibilitySeen } from "@/lib/eligibility/server-fns";
-
-// No real WhatsApp number exists anywhere in this codebase yet — set this
-// (digits only, country code first, e.g. "923001234567") to wire up the
-// registration form's "Chat on WhatsApp" submit below.
-const WHATSAPP_NUMBER = "";
+import { WHATSAPP_NUMBER, buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const exploreOptions = [
-  { id: "feedback" as const, icon: MessageCircle, label: "Feedback", desc: "Student results" },
   {
     id: "mentor" as const,
     icon: GraduationCap,
-    label: "About / Mentor",
-    desc: "Recognition & bio",
+    label: "About Mentor",
+    desc: "Bio & LinkedIn",
+  },
+  {
+    id: "outline" as const,
+    icon: ListChecks,
+    label: "Course Outline",
+    desc: "Jump to the full curriculum",
+  },
+  {
+    id: "reviews" as const,
+    icon: PlayCircle,
+    label: "Reviews",
+    desc: "Student photos & videos",
   },
 ];
 
@@ -63,12 +74,16 @@ const feedbackScreenshots: { src: string; alt: string }[] = [
   },
 ];
 
+// Drop video files here (e.g. "/videos/review-1.mp4") to have them appear
+// in the Reviews tab, next to the image reviews above. Kept as its own
+// array so image and video reviews can be optimized independently.
+const reviewVideos: { src: string; poster?: string }[] = [];
+
 const mentor = {
   name: "Abdur Rehman",
   role: "Founder & Mentor, CareerBooster",
   bio: "Founder of CareerBooster and mentor to students moving into research, data, and technical careers — teaching the practical AI, data, and career skills behind this program.",
   linkedin: "https://www.linkedin.com/in/abdul-rehman147",
-  facebook: "https://www.facebook.com/profile.php?id=61586018271684",
 };
 
 const title = "Eligibility — CareerBooster";
@@ -85,30 +100,8 @@ export const Route = createFileRoute("/eligibility")({
       { property: "og:type", content: "website" },
     ],
   }),
-  // Marks the visitor as having seen this page, so the site-wide gate
-  // (see src/routes/__root.tsx) won't redirect them back here again this
-  // browser session.
-  loader: () => markEligibilitySeen(),
   component: EligibilityPage,
 });
-
-const whoCanJoin = [
-  {
-    icon: GraduationCap,
-    title: "Students & Recent Graduates",
-    text: "Build job-ready skills alongside — or right after — your degree, no matter your major.",
-  },
-  {
-    icon: Users,
-    title: "Working Professionals",
-    text: "Upskill or pivot into a new field without pausing your current job.",
-  },
-  {
-    icon: Sparkles,
-    title: "Career Changers",
-    text: "No prior experience in the field is required — every track starts from the fundamentals.",
-  },
-];
 
 const roadmapStages = [
   {
@@ -243,8 +236,12 @@ const roadmapStages = [
 const achievements = [
   { icon: BrainCircuit, title: "AI & Automation Skills" },
   { icon: BarChart3, title: "High-Demand Data Science Skills" },
+  { icon: LineChart, title: "Advanced Data Analysis & Visualization Skills" },
+  { icon: PenTool, title: "AI Content Creation Skills" },
+  { icon: Megaphone, title: "AI Ad Generation & Creative Skills" },
+  { icon: TrendingUp, title: "AI Marketing & Growth Skills" },
   { icon: Briefcase, title: "Freelance & Remote-Work Skills" },
-  { icon: Award, title: "CPD & IBEI Recognized Certificate" },
+  { icon: Award, title: "Internationally Recognized Certificate" },
   { icon: GraduationCap, title: "Job Hunting Support" },
   { icon: Sparkles, title: "Professional Portfolio" },
 ];
@@ -257,13 +254,23 @@ const classDetails = [
   },
   {
     icon: Calendar,
-    title: "Friday & Sunday Live Classes",
-    text: "Live sessions run every Friday and Sunday across a 6-month program — every class is recorded too, so you're never stuck if you miss one.",
+    title: "Weekend Live Classes",
+    text: "Classes are held on weekends — every Friday and Sunday — across a 3-month program, combining live and recorded classes. Students get full access to every recording, so nothing is ever missed.",
   },
   {
     icon: Clock,
     title: "Self-Paced Lessons",
     text: "A structured video-and-quiz sequence you move through on your own schedule.",
+  },
+  {
+    icon: Wrench,
+    title: "Live Hands-On & Practical Experience",
+    text: "Beyond theory, students get live hands-on practice and real practical experience applying what they learn.",
+  },
+  {
+    icon: Compass,
+    title: "Ongoing Guidance & Support",
+    text: "Proper guidance is provided throughout the course on how to practically develop, implement, and use everything covered — including when to do the work yourself and when to outsource it.",
   },
   {
     icon: RefreshCw,
@@ -273,7 +280,7 @@ const classDetails = [
   {
     icon: Award,
     title: "Recognized Certificate",
-    text: "A CPD & IBEI recognized certificate is issued automatically once every lesson and quiz is complete.",
+    text: "An internationally recognized certificate is issued automatically once every lesson and quiz is complete.",
   },
   {
     icon: ShieldCheck,
@@ -300,8 +307,8 @@ function RegistrationForm() {
     const phone = String(data.get("phone") || "");
 
     setSubmitting(true);
-    const message = `New Registration — CareerBooster\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nI agree to pay the PKR 4,999 program fee. Please send me the payment details.`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
+    const message = `New Registration — CareerBooster\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nI agree to pay the discounted PKR 3,000 program fee. Please send me the payment details.`;
+    window.open(buildWhatsAppUrl(message), "_blank");
     setSubmitting(false);
     form.reset();
   }
@@ -336,7 +343,7 @@ function RegistrationForm() {
       </div>
       <label className="flex items-start gap-2.5 text-[13.5px] text-muted-foreground">
         <input type="checkbox" required className="mt-1 size-4 accent-primary" />I agree to pay the
-        PKR 4,999 program fee to confirm my seat.
+        discounted PKR 3,000 program fee to confirm my seat.
       </label>
       <button
         disabled={submitting}
@@ -354,17 +361,156 @@ function RegistrationForm() {
   );
 }
 
-function EligibilityPage() {
+// Self-contained: manages its own open/closed tab so each instance on the
+// page (top and bottom) reveals content directly below itself, instantly —
+// no scrolling, no shared state between the two copies.
+function ExploreSection() {
   const [activeTab, setActiveTab] = useState<ExploreTab | null>(null);
-  const tabContentRef = useRef<HTMLDivElement>(null);
 
-  function openTab(id: ExploreTab) {
+  function handleClick(id: ExploreTab) {
+    if (id === "outline") {
+      setActiveTab(null);
+      document
+        .getElementById("course-outline")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
     setActiveTab((cur) => (cur === id ? null : id));
-    window.setTimeout(() => {
-      tabContentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 50);
   }
 
+  return (
+    <section className="bg-background py-16 lg:py-24">
+      <div className="mx-auto max-w-[1100px] px-5">
+        <div className="mx-auto mb-8 max-w-2xl text-center">
+          <span className="text-[14px] font-bold uppercase tracking-widest text-primary">
+            Explore More
+          </span>
+          <h2 className="mt-3 font-display text-[30px] font-bold tracking-tight sm:text-[40px]">
+            Want More Before You Enroll?
+          </h2>
+          <p className="mt-3 text-[15px] text-muted-foreground">
+            Tap any option to see the full detail.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-3 gap-2 sm:gap-4">
+          {exploreOptions.map((opt) => (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => handleClick(opt.id)}
+              className={`flex flex-col items-center gap-1.5 rounded-xl border-[3px] border-primary p-3 text-center transition-all sm:gap-3 sm:rounded-[1.75rem] sm:p-8 ${
+                activeTab === opt.id
+                  ? "-translate-y-1 bg-forest-deep shadow-float"
+                  : "bg-card hover:-translate-y-1 hover:shadow-card"
+              }`}
+            >
+              <span
+                className={`grid size-9 shrink-0 place-items-center rounded-xl sm:size-14 sm:rounded-2xl ${activeTab === opt.id ? "bg-primary" : "bg-accent"}`}
+              >
+                <opt.icon
+                  className={`size-5 sm:size-7 ${activeTab === opt.id ? "text-primary-foreground" : "text-primary"}`}
+                />
+              </span>
+              <div>
+                <p
+                  className={`text-[12px] font-bold sm:text-[17px] ${activeTab === opt.id ? "text-forest-foreground" : "text-foreground"}`}
+                >
+                  {opt.label}
+                </p>
+                <p
+                  className={`mt-1 hidden text-[13px] font-semibold sm:block ${activeTab === opt.id ? "text-forest-foreground/60" : "text-muted-foreground"}`}
+                >
+                  {opt.desc}
+                </p>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {activeTab === "reviews" && (
+          <div className="animate-in fade-in mt-8 rounded-[1.75rem] border-[3px] border-primary bg-surface p-6 duration-150 sm:p-8">
+            <div className="mx-auto mb-6 max-w-2xl text-center">
+              <h3 className="font-display text-[22px] font-bold tracking-tight sm:text-[26px]">
+                Reviews
+              </h3>
+              <p className="mt-2 text-[14px] text-muted-foreground">
+                Real results from real students.
+              </p>
+            </div>
+
+            {reviewVideos.length > 0 && (
+              <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {reviewVideos.map((vid) => (
+                  <video
+                    key={vid.src}
+                    src={vid.src}
+                    poster={vid.poster}
+                    controls
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="block w-full rounded-xl border border-border bg-black"
+                  />
+                ))}
+              </div>
+            )}
+
+            {feedbackScreenshots.length > 0 ? (
+              <div className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3">
+                {feedbackScreenshots.map((shot, i) => (
+                  <img
+                    key={shot.src}
+                    src={shot.src}
+                    alt={shot.alt}
+                    loading={i < 3 ? "eager" : "lazy"}
+                    decoding="async"
+                    fetchPriority={i < 3 ? "high" : "auto"}
+                    className="block w-full break-inside-avoid rounded-xl border border-border"
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="mx-auto flex max-w-md flex-col items-center rounded-xl border border-dashed border-border bg-card px-6 py-10 text-center">
+                <ImageIcon className="size-8 text-muted-foreground" />
+                <p className="mt-3 text-[14px] font-semibold">
+                  Student feedback screenshots are being added here.
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === "mentor" && (
+          <div className="animate-in fade-in mt-8 rounded-[1.75rem] border-[3px] border-primary bg-surface p-6 text-center duration-150 sm:p-8">
+            <span className="mx-auto grid size-14 place-items-center rounded-full bg-forest-deep">
+              <GraduationCap className="size-7 text-forest-foreground" />
+            </span>
+            <h3 className="mt-4 font-display text-[22px] font-bold tracking-tight sm:text-[26px]">
+              {mentor.name}
+            </h3>
+            <p className="mt-1 text-[13px] font-semibold text-primary">{mentor.role}</p>
+            <p className="mx-auto mt-3 max-w-lg text-[14px] leading-relaxed text-muted-foreground">
+              {mentor.bio}
+            </p>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+              <a
+                href={mentor.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-[13.5px] font-bold transition-colors hover:border-primary hover:text-primary"
+              >
+                <Linkedin className="size-4" /> LinkedIn
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function EligibilityPage() {
   return (
     <div className="min-h-screen bg-background">
       <main>
@@ -374,8 +520,14 @@ function EligibilityPage() {
               <span className="text-[12.5px] font-bold uppercase tracking-widest text-forest-foreground/50">
                 Program Fee
               </span>
+              <span className="text-[15px] font-semibold text-forest-foreground/40 line-through decoration-2 sm:text-[17px]">
+                Total Fee PKR 8,000
+              </span>
               <span className="text-[42px] font-bold text-emerald-bright sm:text-[54px]">
-                PKR 4,999
+                PKR 3,000
+              </span>
+              <span className="text-[12.5px] font-bold uppercase tracking-widest text-emerald-bright">
+                Discounted Price
               </span>
               <span className="mt-1 text-[12.5px] font-semibold text-forest-foreground/70">
                 One-time payment · Full course access
@@ -386,42 +538,14 @@ function EligibilityPage() {
               Learn <span className="text-primary">High-Demand & High-Earning</span> Skills for Your
               Career
             </h1>
-
-            <div className="mx-auto mt-6 inline-flex items-center gap-3 rounded-2xl border-2 border-primary/30 bg-accent px-6 py-4 text-left sm:px-8 sm:py-5">
-              <Sparkles className="size-7 shrink-0 text-primary sm:size-8" />
-              <p className="text-[16px] font-bold leading-snug text-foreground sm:text-xl">
-                Browse the courses and see exactly what skills you'll walk away with.
-              </p>
-            </div>
           </div>
         </section>
 
-        <section className="bg-background py-16">
-          <div className="mx-auto max-w-[1240px] px-5">
-            <h2 className="text-center font-display text-[38px] font-bold tracking-tight sm:text-[52px]">
-              Built for <span className="text-primary">Every Stage</span> of Your Career
-            </h2>
-            <div className="mx-auto mt-4 h-[3px] w-14 rounded-full bg-primary" />
+        <ExploreSection />
 
-            <div className="mt-12 grid gap-6 sm:grid-cols-3">
-              {whoCanJoin.map((w) => (
-                <div
-                  key={w.title}
-                  className="rounded-2xl border-[3px] border-primary bg-card p-7 text-center shadow-card"
-                >
-                  <span className="mx-auto grid size-14 place-items-center rounded-full bg-accent">
-                    <w.icon className="size-6 text-primary" />
-                  </span>
-                  <h3 className="mt-5 text-[17px] font-bold">{w.title}</h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{w.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Skills roadmap — four major areas */}
-        <section className="bg-surface py-16 lg:py-24">
+        {/* Course Outline — always visible here; the "Course Outline" card
+            above scrolls straight down to this same section. */}
+        <section id="course-outline" className="scroll-mt-20 bg-surface py-16 lg:py-24">
           <div className="mx-auto max-w-[1350px] px-5">
             <div className="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
               <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-[13px] font-bold uppercase tracking-widest text-primary">
@@ -544,7 +668,14 @@ function EligibilityPage() {
               <h2 className="mt-3 font-display text-[30px] font-bold tracking-tight sm:text-[40px]">
                 About the Classes
               </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
+                A structured <strong className="text-foreground">3-month program</strong>, split
+                into three focused months covering AI & automation (including AI content creation,
+                AI ad generation, and AI marketing), data science & data analysis, and freelancing &
+                job hunting.
+              </p>
             </div>
+
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {classDetails.map((d) => (
                 <div
@@ -564,134 +695,11 @@ function EligibilityPage() {
           </div>
         </section>
 
-        {/* Explore More */}
-        <section className="bg-background py-16 lg:py-24">
-          <div className="mx-auto max-w-[1100px] px-5">
-            <div className="mx-auto mb-8 max-w-2xl text-center">
-              <span className="text-[14px] font-bold uppercase tracking-widest text-primary">
-                Explore More
-              </span>
-              <h2 className="mt-3 font-display text-[30px] font-bold tracking-tight sm:text-[40px]">
-                Want More Before You Enroll?
-              </h2>
-              <p className="mt-3 text-[15px] text-muted-foreground">
-                Tap any option to see the full detail.
-              </p>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {exploreOptions.map((opt) => (
-                <button
-                  key={opt.id}
-                  type="button"
-                  onClick={() => openTab(opt.id)}
-                  className={`flex flex-col items-center gap-3 rounded-[1.75rem] border-[3px] border-primary p-8 text-center transition-all ${
-                    activeTab === opt.id
-                      ? "-translate-y-1 bg-forest-deep shadow-float"
-                      : "bg-card hover:-translate-y-1 hover:shadow-card"
-                  }`}
-                >
-                  <span
-                    className={`grid size-14 place-items-center rounded-2xl ${activeTab === opt.id ? "bg-primary" : "bg-accent"}`}
-                  >
-                    <opt.icon
-                      className={`size-7 ${activeTab === opt.id ? "text-primary-foreground" : "text-primary"}`}
-                    />
-                  </span>
-                  <div>
-                    <p
-                      className={`text-[17px] font-bold ${activeTab === opt.id ? "text-forest-foreground" : "text-foreground"}`}
-                    >
-                      {opt.label}
-                    </p>
-                    <p
-                      className={`mt-1 text-[13px] font-semibold ${activeTab === opt.id ? "text-forest-foreground/60" : "text-muted-foreground"}`}
-                    >
-                      {opt.desc}
-                    </p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {activeTab && (
-          <div ref={tabContentRef} className="scroll-mt-8">
-            {activeTab === "feedback" && (
-              <section className="bg-surface py-16 lg:py-24">
-                <div className="mx-auto max-w-[1240px] px-5">
-                  <div className="mx-auto mb-10 max-w-2xl text-center">
-                    <h2 className="font-display text-[30px] font-bold tracking-tight sm:text-[40px]">
-                      Student Feedback
-                    </h2>
-                    <p className="mt-3 text-[15px] text-muted-foreground">
-                      Real results from real students.
-                    </p>
-                  </div>
-                  {feedbackScreenshots.length > 0 ? (
-                    <div className="columns-1 gap-5 space-y-5 sm:columns-2 lg:columns-3">
-                      {feedbackScreenshots.map((shot) => (
-                        <img
-                          key={shot.src}
-                          src={shot.src}
-                          alt={shot.alt}
-                          loading="lazy"
-                          className="block w-full break-inside-avoid rounded-2xl border border-border shadow-card"
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="mx-auto flex max-w-md flex-col items-center rounded-2xl border border-dashed border-border bg-card px-6 py-14 text-center">
-                      <ImageIcon className="size-8 text-muted-foreground" />
-                      <p className="mt-3 text-[14px] font-semibold">
-                        Student feedback screenshots are being added here.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </section>
-            )}
-
-            {activeTab === "mentor" && (
-              <section className="bg-surface py-16 lg:py-24">
-                <div className="mx-auto max-w-[700px] px-5 text-center">
-                  <span className="mx-auto grid size-16 place-items-center rounded-full bg-forest-deep">
-                    <GraduationCap className="size-8 text-forest-foreground" />
-                  </span>
-                  <h2 className="mt-5 font-display text-[26px] font-bold tracking-tight sm:text-[32px]">
-                    {mentor.name}
-                  </h2>
-                  <p className="mt-1 text-[14px] font-semibold text-primary">{mentor.role}</p>
-                  <p className="mx-auto mt-4 max-w-lg text-[15px] leading-relaxed text-muted-foreground">
-                    {mentor.bio}
-                  </p>
-                  <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-                    <a
-                      href={mentor.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-[13.5px] font-bold transition-colors hover:border-primary hover:text-primary"
-                    >
-                      <Linkedin className="size-4" /> LinkedIn
-                    </a>
-                    <a
-                      href={mentor.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-[13.5px] font-bold transition-colors hover:border-primary hover:text-primary"
-                    >
-                      <Facebook className="size-4" /> Facebook
-                    </a>
-                  </div>
-                </div>
-              </section>
-            )}
-          </div>
-        )}
+        {/* Explore More (also appears above, right after the hero) */}
+        <ExploreSection />
 
         {/* Registration */}
-        <section className="bg-background py-16 lg:py-24">
+        <section id="registration-form" className="scroll-mt-20 bg-background py-16 lg:py-24">
           <div className="mx-auto max-w-[560px] px-5">
             <div className="rounded-[2rem] border border-border bg-card p-8 shadow-card sm:p-10">
               <div className="text-center">

@@ -42,7 +42,7 @@ const features = [
   },
   {
     icon: Award,
-    title: "CPD & IBEI Certification",
+    title: "Internationally Recognized Certification",
     text: "Internationally recognized certificates that validate your skills and boost your career.",
     to: "/certifications" as const,
     img: "/images/1638636241638-aef5120c5153-480x320.jpg",

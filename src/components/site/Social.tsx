@@ -14,7 +14,8 @@ const testimonials = [
     name: "David Chen",
     role: "ML Engineer at Amazon",
     initials: "DC",
-    quote: "The CPD & IBEI certification added great value to my profile. Highly recommended!",
+    quote:
+      "The internationally recognized certification added great value to my profile. Highly recommended!",
   },
   {
     name: "Aisha Khan",

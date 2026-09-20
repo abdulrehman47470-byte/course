@@ -10,7 +10,7 @@ import { CtaFooter } from "@/components/site/CtaFooter";
 
 const title = "CareerBooster — Build Skills That Build Your Future";
 const description =
-  "Industry-focused courses with CPD & IBEI recognized certifications to help you upskill, get hired, and grow faster.";
+  "Industry-focused courses with internationally recognized certifications to help you upskill, get hired, and grow faster.";
 
 export const Route = createFileRoute("/")({
   head: () => ({

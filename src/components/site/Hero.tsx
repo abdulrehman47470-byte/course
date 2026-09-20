@@ -16,7 +16,7 @@ export function Hero() {
               Build <span className="text-emerald-bright">Your Future.</span>
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-forest-foreground/70">
-              Industry-focused courses with CPD & IBEI recognized certifications to help you
+              Industry-focused courses with internationally recognized certifications to help you
               upskill, get hired, and grow faster.
             </p>
             <div className="mt-8 flex flex-wrap gap-3.5">
