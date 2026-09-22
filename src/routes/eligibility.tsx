@@ -23,6 +23,7 @@ import {
   Sparkles,
   TrendingUp,
   Wrench,
+  X,
 } from "lucide-react";
 import { WHATSAPP_NUMBER, buildWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -45,7 +46,16 @@ const exploreOptions = [
     label: "Reviews",
     desc: "Student photos & videos",
   },
+  {
+    id: "demo" as const,
+    icon: PlayCircle,
+    label: "Demo Class",
+    desc: "Watch a free sample class",
+  },
 ];
+
+const demoVideoSrc = "/videos/career-booster-demo.mp4";
+const demoVideoPoster = "/videos/career-booster-demo-poster.jpg";
 
 const feedbackScreenshots: { src: string; alt: string }[] = [
   {
@@ -137,6 +147,14 @@ export const Route = createFileRoute("/eligibility")({
         as: "image",
         href: shot.src,
       })),
+      // Same idea for the demo video: the poster frame preloads with the
+      // page (tiny, so it paints instantly the moment the modal opens),
+      // while the video body itself is prefetched at low priority so it's
+      // already warm in cache by the time anyone taps "Demo Class" —
+      // "prefetch" (not "preload") so this ~8MB fetch never competes with
+      // render-blocking resources.
+      { rel: "preload", as: "image", href: demoVideoPoster },
+      { rel: "prefetch", as: "video", href: demoVideoSrc },
     ],
     scripts: [
       {
@@ -411,6 +429,7 @@ function RegistrationForm() {
 // no scrolling, no shared state between the two copies.
 function ExploreSection() {
   const [activeTab, setActiveTab] = useState<ExploreTab | null>(null);
+  const [demoOpen, setDemoOpen] = useState(false);
 
   function handleClick(id: ExploreTab) {
     if (id === "outline") {
@@ -418,6 +437,10 @@ function ExploreSection() {
       document
         .getElementById("course-outline")
         ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    if (id === "demo") {
+      setDemoOpen(true);
       return;
     }
     setActiveTab((cur) => (cur === id ? null : id));
@@ -438,7 +461,7 @@ function ExploreSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 sm:gap-4">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-4">
           {exploreOptions.map((opt) => (
             <button
               key={opt.id}
@@ -555,6 +578,36 @@ function ExploreSection() {
           </div>
         )}
       </div>
+
+      {demoOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setDemoOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-3xl overflow-hidden rounded-2xl bg-black shadow-float"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setDemoOpen(false)}
+              aria-label="Close demo class video"
+              className="absolute right-3 top-3 z-10 grid size-9 place-items-center rounded-full bg-black/60 text-white transition-colors hover:bg-black/80"
+            >
+              <X className="size-5" />
+            </button>
+            <video
+              src={demoVideoSrc}
+              poster={demoVideoPoster}
+              controls
+              autoPlay
+              playsInline
+              preload="auto"
+              className="block max-h-[80vh] w-full"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
